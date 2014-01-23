@@ -1,0 +1,45 @@
+<?php if($this->tableData):?>
+<?php foreach($this->tableData as $tableData):?>
+
+<div class="sectionHeader"
+runReport="<?php echo isSet($tableData->report) ? $tableData->report : '';?>"
+runWorkCenters="<?php echo isSet($tableData->work_centers) ? $tableData->work_centers : '';?>">
+<h1>Viewing : Archived Record</h1>
+</div>
+
+
+<div class="archiveRecordSummary">
+<div class="detailLine">
+<p><span class="bold">Report:</span> <?php print($tableData->report);?></p>
+<p><span class="bold">Created:</span> <?php print($tableData->created);?> by <?php print($tableData->author);?></p>
+<p><span class="bold">Record Count:</span> <?php echo ($tableData->record_count) ? number_format($tableData->record_count) : 0;?></p>
+<p><span class="bold">B/O Value:</span> $<?php echo ($tableData->bo_value) ? number_format($tableData->bo_value) : 0;?></p>
+<p><span class="bold">Applicable Work Center(s):</span> <?php echo ($tableData->work_centers) ? $tableData->work_centers : '';?></p>
+</div>
+<div class="appliedWorkCenterGroupData">
+<ul></ul>
+</div>
+</div>
+
+<a class="applyHistoricWorkCenterGroups" style="display:none"></a>
+<div class="workCenterGroupsJSON" style="display:none"><?php print($tableData->work_center_groups);?> </div>
+<table>
+<thead>
+<tr>
+<?php foreach($tableData->headings as $heading):?>
+<td><?php echo $heading;?></td>
+<?php endforeach;?>
+</tr>
+</thead>
+<tbody>
+<?php foreach($tableData->rows as $rows):?>
+<tr>
+<?php foreach($rows as $key => $value):?>
+<td><?php echo $value;?></td>
+<?php endforeach;?>
+</tr>
+<?php endforeach;?>
+</tbody>
+</table>
+<?php endforeach;?>
+<?php endif;?>

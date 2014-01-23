@@ -1,0 +1,429 @@
+/******************************************************************************* 
+ *  layout.css
+ *
+ * NOTE: CSS overrides exist inside the layout.js file.
+ *
+ *  @author Jordan Dalton <jordandalton@wrsgroup.com>
+ *  @created Jan 25, 2012, 1:22:55 PM
+ ******************************************************************************/
+
+html { height:100% }
+
+body {
+    overflow: -moz-scrollbars-vertical;
+    overflow: scroll;
+    height:100%;
+}
+
+/**
+ * Body Wrapper
+ * --------------
+ */
+
+.wrapper {
+    margin:0 auto;
+    max-width: 100%;
+    min-width:970px;
+}
+
+.internalWrapper {
+    margin:0 auto;
+    max-width: 1024px;
+    min-width:970px;
+}
+
+.clear { clear:both }
+
+
+/*******************************************************************************
+* General Icons
+* ---------------
+*/
+.icon-close,
+.icon-edit,
+.icon-delete {
+    display: inline-block;
+    height: 16px;
+    margin:0 7px;
+    width: 16px;
+}
+
+/**
+ * HEADER
+ * --------------
+ */
+ #header {
+     border-style:solid solid solid solid;
+     border-width:0 0 1px 0;
+     overflow:hidden;
+     /*margin-top:8px;*/
+     padding:10px 0 5px 0;
+ }
+ 
+ #header h1 { 
+     float:left;
+     margin:10px 10px 10px 0
+ }
+ 
+ #header ul {
+     border-style:solid solid solid solid;
+     border-width:0 0 0 1px;
+     float:left;
+     list-style:none;
+     margin:20px 0 0 5px;
+ }
+ 
+ #header ul li { 
+     min-width:75px;
+     text-align:center 
+ }
+
+/**
+ * NAVBAR
+ * --------------
+ */
+#navbar {
+    height:29px;
+    font-size:15px;
+    padding-top:5px;
+}
+
+#navbar ul.dropdown, 
+#navbar ul.dropdown ul {
+    list-style: none
+}
+
+#navbar ul.dropdown a {
+    text-decoration: none
+}
+
+#navbar ul.dropdown li {
+    /*font: bold 15px Calibri, "Arial Narrow", Arial, sans-serif;*/
+    list-style:none;
+}
+
+/* NAVBAR LEVEL ONE */
+#navbar ul.navigation {position: absolute}
+
+#navbar ul.navigation li {   
+    font-weight:bold;
+    float:left;
+    list-style:none;
+    zoom:1;
+}
+/* background:#41a776 */
+
+#navbar ul.navigation li.active {}
+#navbar ul.navigation a:hover {}
+#navbar ul.navigation li:active {}
+#navbar ul.navigation li:active a {}
+
+#navbar ul.navigation li a {
+    border-style:solid solid solid solid;
+    border-width:1px 1px 1px 1px;
+    display: block;
+    /*height: 19px;*/
+    padding: 6px 10px;
+    text-decoration: none;
+}
+
+#navbar ul.navigation li.active a {
+    border-radius:3px 3px 0 0;
+}
+
+/*#navbar ul.navigation li:last-child a { border-right: none }*/
+
+ /* Doesn't work in IE */
+#navbar ul.navigation li.hover, 
+#navbar ul.navigation li:hover {
+    position:relative;
+}
+
+#navbar ul.navigation li.hover a {}
+
+#navbar ul.navigation li.hover {}
+
+#navbar ul.navigation li.hover a {
+    border-radius:3px 3px 0 0;
+}
+
+/* NAVBAR LEVEL TWO */
+#navbar ul.navigation ul {
+    border-width:0 1px 1px 1px;
+    left: 0px;
+    position: absolute;
+    top: 100%;
+    visibility: hidden;
+    width: 180px;
+}
+
+#navbar ul.navigation ul li {
+    float: none;
+}
+
+/* IE 6 & 7 Needs Inline Block */
+#navbar ul.navigation ul li a {
+    border: none;
+    display: inline-block;
+    padding: 3px 5px;
+    width: 170px;
+}
+
+#navbar ul.navigation ul li a:hover {}
+
+#navbar ul.navigation ul li.hover, 
+#navbar ul.navigation ul li:hover {}
+
+#navbar ul.navigation ul li.hover a {}
+
+/* NAVBAR LEVEL THREE */
+#navbar ul.navigation ul ul {
+    border-style:solid solid solid solid;
+    border-width:1px 0 0 0;
+    left: 100%;
+    top: 0;
+}
+
+#navbar ul.navigation li:hover > ul {
+    visibility: visible;
+    border-style:solid solid solid solid;
+    border-width:0 1px 1px 1px;
+}
+
+#navbar ul.navigation ul li.hover ul a {}
+
+#navbar ul.navigation ul li.hover ul a:hover {}
+
+
+/**
+ * CONTENT
+ * --------------
+ */
+#content { 
+	border-style:solid solid solid solid;
+	border-width:1px 0 0 0;
+	overflow: hidden;
+	margin-top:-1px; 
+}
+#content .sectionHeader { padding:10px 0 } 
+#content .mainContent {}
+
+#content .breadcrumbs { 
+    border-radius:3px 3px 3px 3px;
+    margin-top:10px;
+    padding:5px 10px 7px 10px;
+}
+
+/* HIDE THE BREADCRUMB ON PARTICULAR PAGES */
+body#work-center-group.index .breadcrumbs,
+body#work-order.index .breadcrumbs { display:none }
+
+
+/******************************************************************************/
+
+.recentChanges {
+    background:#fff url(images/icon-new.gif) no-repeat top right;
+    border:1px solid #ccc;
+    border-radius:5px 5px 5px 5px;
+    box-shadow:inset 0 0 5px rgba(0,0,0,.15);
+    color:#777;
+    font-size:20px;
+    margin:1em 0;
+    padding:.5em;
+}
+.recentChanges h2 { 
+    color:#638b48;
+    border-bottom:1px dashed #ccc;
+    font-size:25px;
+    font-style:italic;
+    font-weight:normal;
+    letter-spacing:-1px;
+    padding:0 0 .5em 0;
+}
+.recentChanges ol { margin:10px 0 10px 40px;line-height:40px }
+.recentChanges ul { font-size:.8em;line-height:30px;margin:0px 20px; }
+
+/*******************************************************************************
+* Tables
+*/
+
+table { width:100% }
+
+table thead {}
+
+table th,
+table td { 
+    border-style:solid solid solid solid;
+    border-width:1px 1px 1px 1px;
+	padding:.5em 0 .5em .5em;
+	text-align:center
+}
+
+table thead th.header { 
+    padding-left:17.5px;
+    text-align:left;
+    min-width:30px
+} 
+
+table tbody tr:hover {}
+
+table tbody tr td {
+    border-style:solid solid solid solid;
+    border-width:1px 1px 1px 1px;
+}
+
+
+/*******************************************************************************
+* Forms
+*/
+form {}
+form .formContainer {
+    padding:10px;
+}
+form .formHeader h1 { padding:0 0 5px 5px; }
+form .formHeader p.instruction  { 
+    border-radius:3px 3px 3px 3px;
+    padding:6px 3px;
+    text-align:center
+}
+
+form p.specialNote { padding:5px 10px }
+
+
+form .formErrors {
+    border-style: solid solid solid solid;
+    border-width: 1px 1px 1px 1px;
+    margin: 5px 0 0 0;
+    padding: 10px;
+}
+
+form .clearWrapper {
+    margin-top:3px;
+    padding:3px 0;
+}
+
+textarea,
+form input[type='text'],
+form input[type='password'] {
+    border-radius:3px 3px 3px 3px;
+    border-style:solid solid solid solid;
+    border-width:1px 1px 1px 1px;
+    padding:4px;
+    width:94%;
+}
+
+button,
+form input[type='submit']{
+    border-radius: 3px 3px 3px 3px;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    font: 100% arial,sans-serif;
+    outline: medium none;
+    padding: 3px 8px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+
+/*******************************************************************************
+* Boxes
+*/
+.mainBoxContainer { 
+    border-radius:3px 3px 3px 3px;
+    padding:5px 7px 7px 5px;
+}
+
+.boxContainer {
+	border-radius: 3px 3px 3px 3px;
+	border-style:solid solid solid solid;
+	border-width:1px 1px 1px 1px;
+	width:32.05%;
+	
+}
+
+.boxCol1 { float:left }
+.boxCol2 { float:left;margin:0 1.5% }
+.boxCol3 { float:right }
+
+.boxTitle {
+	border-radius: 3px 3px 0 0;
+	border-style:solid solid solid solid;
+	border-width:0 0 1px 0;
+	padding:1.5% 2%;
+}
+
+.boxTitle a { 
+    height:14px;
+    width:15px;
+    float:right
+}
+
+.boxContent {
+    line-height:22.5px;
+	padding:1.5% 2%;
+}
+
+.boxButtons {
+    border-radius:3px 3px 3px 3px;
+    margin-top:7px;
+	padding:1%;
+    text-align:right
+}
+
+.boxContent form .hint { font-size:90% }
+
+.boxContent form select { 
+    border-color:#ccc #ccc #ccc #ccc;
+    border-style:solid solid solid solid;
+    border-width:1px 1px 1px 1px;
+    padding:5px 5px 5px 2.5px;
+    width:100%;
+}
+
+.boxContent form select[multiple='multiple']{ padding:0 }
+
+.boxContent form select[multiple='multiple'] option {
+    border-bottom:1px dashed #c7c7c7;
+    padding:5px;
+}
+
+.boxContent form select[multiple='multiple'] option b { 
+    float:left;
+    color:#555;
+    width:65px 
+}
+
+
+/*******************************************************************************
+* Overlay Loading Indicators
+*/
+#overlay { 
+  display:none; 
+  position:absolute; 
+}
+
+#img-load { 
+  position:absolute;
+  /*text-align:center;*/
+}
+
+#img-load .loadingImage {
+    line-height:90px;
+    height:90px;
+    width:64px;
+}
+
+#img-load p { text-indent:10px }
+
+
+/*******************************************************************************
+* Table Overrides
+*/
+.blueBreak { 
+    border-style:dashed dashed dashed dashed;
+    border-width:3px 0 0 0;
+}
+
+.blur {}

@@ -1,0 +1,34 @@
+
+<div class="sectionHeader">
+<h1>Work Order Report Archives</h1>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Report</th>
+<th>Record Count</th>
+<th>B/O Value</th>
+<th>Author</th>
+<th>Created</th>
+<th>View</th>
+</tr>
+</thead>
+<tbody>
+<?php if($this->results):?>
+<?php foreach($this->results as $result):?>
+<?php $result = (object) $result;?>
+<tr>
+<td><?php echo $result->id;?></td>
+<td><?php echo $result->report;?></td>
+<td><?php echo $result->record_count;?></td>
+<td>$<?php echo number_format($result->bo_value);?></td>
+<td><?php echo $result->author;?></td>
+<td><?php echo $result->created;?></td>
+<td><a href="<?php echo $this->url(array('controller' => 'work-order', 'action' => 'archived-record', 'id' => $result->id), null, true);?>">View</a></td>
+</tr>
+<?php endforeach;?>
+<?php endif;?>
+</tbody>
+</table>

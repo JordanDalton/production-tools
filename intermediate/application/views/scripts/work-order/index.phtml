@@ -1,0 +1,310 @@
+<?PHP 
+/******************************************************************************
+ * REALLY IMPORTANT, THE SECTION HEADER MUST NEVER BE MODIFIED OR REMOVED
+ */
+;?>
+<!-- .sectionHeader -->
+<div class="sectionHeader" 
+     runSet="<?php echo isSet($this->params['run']) ? '1' : '0';?>" 
+     runReport="<?php echo isSet($this->params['run']) ? $this->params['run'] : '';?>" 
+     runWorkCenters="<?php echo isSet($this->params['work-center']) ? $this->params['work-center'] : '';?>" 
+     runStatus="<?php echo isSet($this->params['order-status']) ? $this->params['order-status'] : '';?>" 
+     runItemNumber="<?php echo isSet($this->params['item-number']) ? $this->params['item-number'] : '';?>" 
+     runOrderNumber="<?php echo isSet($this->params['order-number']) ? $this->params['order-number'] : '';?>" 
+     runCode="<?php echo isSet($this->params['code']) ? $this->params['code'] : '';?>"   >
+    <h1>Work Orders</h1>
+</div>
+<!-- /.sectionHeader -->
+
+<!-- .mainBoxContainer -->
+<div class="mainBoxContainer">
+
+    <!-- .boxContainer .boxCol1 -->
+    <div class="boxContainer boxCol1 runWorkOrderReportContainer">
+        <!-- .boxTitle -->
+        <div class="boxTitle">RUN WORK ORDER REPORT <a class="collapse" href="#"></a></div>
+        <!-- /.boxTitle -->
+        <!-- .boxContent -->
+        <div class="boxContent">
+            <?php echo $this->selectReportForm;?>
+        </div>
+        <!-- /.boxContent -->
+    </div>
+    <!-- /.boxContainer .boxCol1 -->
+
+    <!-- .boxContainer .boxCol2 -->
+    <div class="boxContainer boxCol2">
+        <!-- .boxTitle -->
+        <div class="boxTitle">FILTER TABLE RESULTS <a class="collapse" href="#"></a></div>
+        <!-- /.boxTitle -->
+        <!-- .boxContent -->
+        <div class="boxContent">
+            
+        </div>
+        <!-- /.boxContent -->
+    </div>
+    <!-- /.boxContainer .boxCol2 -->
+
+    <!-- .boxContainer .boxCol3 -->
+    <div class="boxContainer boxCol3">
+        <!-- .boxTitle -->
+        <div class="boxTitle">RUN WORK ORDER REPORT</div>
+        <!-- /.boxTitle -->
+        <!-- .boxContent -->
+        <div class="boxContent">
+            <p>Which report would you like ran?</p>
+        </div>
+        <!-- /.boxContent -->
+    </div>
+    <!-- /.boxContainer .boxCol3 -->
+
+
+    <!--.clear-->
+    <div class="clear"></div>
+    <!--/.clear-->
+
+</div>
+<!-- /.mainBoxContainer -->
+
+
+<?php if(isSet($this->params['run'])):?>
+    <?php if($this->tableData->status === 'success'):?>
+
+    <?php $ignore_reports = array('WO1002RG', 'OR1000RG');?>
+
+    <?php if(isSet($this->tableData->count) && $this->tableData->count > 0 && !in_array($this->params['run'],$ignore_reports)):?>
+
+<!-- .applyWorkCenterGroups -->
+<div class="applyWorkCenterGroups">
+    <p> <span>Apply work center groups?</span> <button>Yes</button></p>
+</div>
+<!-- /.applyWorkCenterGroups -->
+
+    <?php endif;?>
+
+
+<!-- .results-count -->
+<div class="results-count" style="<?php echo(strtolower($this->params['run']) === 'or1000rg') ? 'display:none' : '';?>">
+    
+<?php
+// Set fallback result count message.
+$resutlsCountBackupMessage = (isSet($this->tableData->count) && $this->tableData->count == 0) ? ' records were returned.': ' record was returned.';
+
+// Use plural text depending upon resultsCount
+$resultsCountMessage = (isSet($this->tableData->count) && $this->tableData->count >= 2) ? ' records were returned.' : $resutlsCountBackupMessage;
+?>
+    
+    <p><b class="totalRecordsNumber"><?php echo isSet($this->tableData->count) ? $this->tableData->count : 0;?></b> <span class="totalRecordsMessage"><?php echo $resultsCountMessage;?></span> <span class="totalBackOrderMessage">| Total B/O Value: $<span class="totalBackOrderValue"></span></p>
+
+    <div class="appliedWorkCenterGroupData">
+        <ul></ul>
+    </div>
+    
+
+    <form method="post">
+        <input id="report" name="report" style="display:none"/>
+        <input id="bo_value" name="bo_value" style="display:none"/>
+        <input id="record_count" name="record_count" style="display:none"/>
+        <textarea id="work_centers" name="work_centers" style="display:none"></textarea>
+        <textarea id="work_center_groups" name="work_center_groups" style="display:none"></textarea>
+        <textarea id="postData" name="postData" style="display:none"></textarea>
+    <button class="saveWorkOrderTableReport">Save Results</button>    
+    </form>
+    
+</div>
+<!-- .results-count -->
+
+<!-- .mainBoxContainer -->
+<div class="mainBoxContainer tableResultsContainer">
+
+    <!-- .boxContainer .boxCol1 -->
+    <div class="boxContainer boxCol1">
+        <!-- .boxTitle -->
+        <div class="boxTitle">Table Results<a class="collapse" href="#"></a></div>
+        <!-- /.boxTitle -->
+        <!-- .boxContent -->
+        <div class="boxContent">
+            
+        <?php if(isSet($this->params['run'])):?>
+            <?php if($this->tableData->status === 'success'):?>
+
+                <?php /* TABLE LAYOUT SPECIFIC TO WO1010RG REPORT */ ;?>
+                <?php if($this->params['run'] === 'WO1010RG'):?>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="header">Co/Wo No.</th>
+                            <th class="header">Order Status</th>
+                            <th class="header">WC</th>
+                            <th class="header">Item #</th>
+                            <th class="header" style="width:100px;">Item Description</th>
+                            <th class="header">Order Qty</th>
+                            <th class="header">B/O Qty</th>
+                            <th class="header">B/O Value</th>
+                            <th class="header">Build Time (Hrs)</th>
+                            <th class="header">U/M</th>
+                            <th class="header">Entry Date</th>
+                            <th class="header">Due Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                <?php if($this->tableData->data):?>
+                <?php foreach($this->tableData->data as $data):?>
+                <?php $data = (object) $data;?>        
+                        <tr>
+                            <td><?php echo (isSet($data->order_number) && strlen($data->order_number) >= 1) ? $data->order_number : '';?></td>
+                            <td><?php echo (isSet($data->order_status) && strlen($data->order_status) >= 1) ? $data->order_status :'';?></td>
+                            <td><?php echo (isSet($data->work_center) && strlen($data->work_center) >= 1) ? $data->work_center :'';?></td>
+                            <td><?php echo (isSet($data->item_number) && strlen($data->item_number) >= 1) ? $data->item_number :'';?></td>
+                            <td><?php echo (isSet($data->item_description) && strlen($data->item_description) >= 1) ? $data->item_description :'';?></td>
+                            <td><?php echo (isSet($data->order_quantity) && strlen($data->order_quantity) >= 1) ? $data->order_quantity :'';?></td>
+                            <td><?php echo (isSet($data->back_order_quantity) && strlen($data->back_order_quantity) >= 1) ? $data->back_order_quantity :'';?></td>
+                            <td><?php echo (isSet($data->back_order_value) && strlen($data->back_order_value) >= 1) ? '$'.$data->back_order_value :'$0';?></td>
+                            <td><?php echo (isSet($data->build_time_hours) && strlen($data->build_time_hours) >= 1) ? number_format($data->build_time_hours, 2) : '0';?></td>
+                            <td><?php echo (isSet($data->um) && strlen($data->um) >= 1) ? $data->um :'';?></td>
+                            <td><?php echo (isSet($data->entry_date) && strlen($data->entry_date) >= 1) ? $data->entry_date :'';?></td>
+                            <td><?php echo (isSet($data->due_date) && strlen($data->due_date) >= 1) ? $data->due_date :'';?></td>
+                        </tr>
+                <?php endforeach;?>
+                <?php endif;?>
+                    </tbody>
+                </table>
+                <?php endif;?>
+
+                <?php /* TABLE LAYOUT SPECIFIC TO WO1002RG REPORT */ ;?>
+                <?php if($this->params['run'] === 'WO1002RG'):?>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="header">Item #</th>
+                            <th class="header">Item Description</th>
+                            <th class="header">B/O Qty</th>
+                            <th class="header">B/O Value</th>
+                            <th class="header">Status</th>
+                            <th class="header">Co/Wo No.</th>
+                            <th class="header">Order Qty</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                <?php if($this->tableData->data):?>
+                <?php foreach($this->tableData->data as $data):?>
+                <?php $data = (object) $data;?>                        
+                        <tr>
+                            <td><?php echo (isSet($data->item_number)  && strlen($data->item_number) >= 1) ? $data->item_number : '';?></td>
+                            <td><?php echo (isSet($data->item_description)  && strlen($data->item_description) >= 1) ? $data->item_description : '';?></td>
+                            <td><?php echo (isSet($data->back_order_quantity)  && strlen($data->back_order_quantity) >= 1) ? number_format($data->back_order_quantity, 2) : '0';?></td>
+                            <td><?php echo (isSet($data->back_order_value)  && strlen($data->back_order_value) >= 1) ? '$'.$data->back_order_value : '$0';?></td>
+                            <td><?php echo (isSet($data->status)  && strlen($data->status) >= 1) ? $data->status : '';?></td>
+                            <td><?php echo (isSet($data->order_number)  && strlen($data->order_number) >= 1) ? $data->order_number : '';?></td>
+                            <td><?php echo (isSet($data->order_quantity)  && strlen($data->order_quantity) >= 1) ? number_format($data->order_quantity, 2) : '0';?></td>
+                        </tr>
+                <?php endforeach;?>
+                <?php endif;?>
+                    </tbody>
+                </table>
+                <?php endif;?>
+            <?php else:?>
+            <?php endif;?>
+            
+            
+               <?php /* TABLE LAYOUT SPECIFIC TO OR1000RG REPORT */ ;?>
+                <?php if($this->params['run'] === 'OR1000RG'):?>
+                <?php $code = (isSet($this->params['code'])) ? strtoupper($this->params['code']) : false; ?>
+                <table id="or1000rgTable">
+                    <thead>
+                        <tr>
+                            <th>Item #</th>
+                            <th>Description</th>
+                            <th>Back Order</th>
+                            <th>Commited</th>
+                            <th>Due Date</th>
+                            <th>Entry Date</th>
+                            <th>Code</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if($this->tableData->data):?>
+                            <?php foreach($this->tableData->data as $data):?>
+                                <tr class="workOrderRow">
+                                    <td><?php echo (isSet($data->order_number) && isSet($data->order_generation_number)) ? "{$data->order_number}/{$data->order_generation_number}" : '';?></td>
+                                    <td><?php echo (isSet($data->customer_name)) ? $data->customer_name : '';?></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <?php if(isSet($data->item_data) and count($data->item_data) >= 1):?>
+                                    <?php $order_total = 0;?>
+                                    <?php $ship_total = 0;?>
+                                    <?php $back_order_total = 0;?>
+                                    <?php foreach($data->item_data as $item_data):?>
+                                        <?php $order_total+= ($item_data->list_price * $item_data->quantity_ordered); ?> 
+                                        <?php $ship_total+= ($item_data->list_price * $item_data->quantity_shipped); ?> 
+                                        <?php $back_order_total+= ($item_data->list_price * $item_data->back_order_quantity); ?>
+                                        <?php $rowCode = (isSet($item_data->code)) ? strtoupper($item_data->code) : ''; ?>
+                                        <?php if($code && $code === $rowCode):?>
+                                        <tr class="workOrderItemRow">
+                                            <td><?php echo $item_data->item_number;?></td>
+                                            <td><?php echo (isSet($item_data->item_description)) ? $item_data->item_description : '';?></td>
+                                            <td><?php echo (isSet($item_data->back_order_quantity)) ? $item_data->back_order_quantity : '0';?></td>
+                                            <td><?php echo (isSet($item_data->quantity_shipped)) ? $item_data->quantity_shipped : '.000';?></td>
+                                            <td><?php echo (isSet($item_data->due_date) && strlen($item_data->due_date) == 8) ? preg_replace('/(\d{4})(\d{2})(\d{2})/', "$2/$3/$1", $item_data->due_date) : '';?></td>
+                                            <td><?php echo (isSet($item_data->entry_date) && strlen($item_data->entry_date) == 8) ? preg_replace('/(\d{4})(\d{2})(\d{2})/', "$2/$3/$1", $item_data->entry_date) : '';?></td>
+                                            <td><?php echo (isSet($item_data->code)) ? $item_data->code : '';?></td>
+                                        </tr>
+                                        <?php endif;?>
+                                        <?php if(!$code):?>
+                                        <tr class="workOrderItemRow">
+                                            <td><?php echo $item_data->item_number;?></td>
+                                            <td><?php echo (isSet($item_data->item_description)) ? $item_data->item_description : '';?></td>
+                                            <td><?php echo (isSet($item_data->back_order_quantity)) ? $item_data->back_order_quantity : '0';?></td>
+                                            <td><?php echo (isSet($item_data->quantity_shipped)) ? $item_data->quantity_shipped : '.000';?></td>
+                                            <td><?php echo (isSet($item_data->due_date) && strlen($item_data->due_date) == 8) ? preg_replace('/(\d{4})(\d{2})(\d{2})/', "$2/$3/$1", $item_data->due_date) : '';?></td>
+                                            <td><?php echo (isSet($item_data->entry_date) && strlen($item_data->entry_date) == 8) ? preg_replace('/(\d{4})(\d{2})(\d{2})/', "$2/$3/$1", $item_data->entry_date) : '';?></td>
+                                            <td><?php echo (isSet($item_data->code)) ? $item_data->code : '';?></td>
+                                        </tr>
+                                        <?php endif;?>
+                                    <?php endforeach;?>
+                                        <tr class="orderTotals">
+                                            <td colspan="7"><span class="bold">Order Total:</span> <?php echo $order_total;?> <span class="marginedVerticalBar">|</span> <span class="bold">Ship Total</span> : <?php echo $ship_total;?> <span class="marginedVerticalBar">|</span> <span class="bold">Back Order Total:</span> <?php echo $back_order_total;?></td>
+                                        </tr>
+                                <?php endif;?>
+                            <?php endforeach;?>
+                        <?php endif;?>
+                    </tbody>
+                </table>
+            <?php else:?>
+            <?php endif;?>
+            
+        <?php endif;?>
+            
+            
+            
+            
+        </div>
+        <!-- /.boxContent -->
+    </div>
+    <!-- /.boxContainer .boxCol1 -->
+
+
+
+    <!--.clear-->
+    <div class="clear"></div>
+    <!--/.clear-->
+
+</div>
+<!-- /.mainBoxContainer -->
+<?php endif;?>
+<?php endif;?>
+
+
+<!-- #overlay -->
+<div id="overlay">
+    <div id="img-load">
+      <div class="loadingImage">Loading...</div>
+    </div>
+</div>
+<!-- /#overlay -->

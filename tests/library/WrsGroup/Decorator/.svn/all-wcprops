@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/WrsGroupPhpLibrary/!svn/ver/276/trunk/tests/Decorator
+END
+ItemCleanTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/WrsGroupPhpLibrary/!svn/ver/261/trunk/tests/Decorator/ItemCleanTest.php
+END
+ItemAbstractTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/WrsGroupPhpLibrary/!svn/ver/261/trunk/tests/Decorator/ItemAbstractTest.php
+END
+MatSuffixTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/WrsGroupPhpLibrary/!svn/ver/276/trunk/tests/Decorator/MatSuffixTest.php
+END

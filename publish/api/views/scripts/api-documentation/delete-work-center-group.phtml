@@ -1,0 +1,77 @@
+<div class="breadcrumbs">
+<?php echo($this->navigation()->breadcrumbs()->setLinkLast(false)->setMinDepth(0)->render());?>
+</div>
+
+<div class="sectionHeader enlarge">
+<h1>DELETE work-center-group/</h1>
+</div>
+
+<!-- #apiDocLeftColumn -->
+<div id="apiDocLeftColumn">
+
+<div class="generalContent">
+<p class="updatedOn">Updated on <?php echo $this->fileUpdated;?></p>
+<p>Remove a work center group from the database.</p>
+<h5>Resource URL</h5>
+<p>http://api.productiontoolsv2.com/rest/work-center-group</p>
+</div>
+
+<table>
+<thead>
+<tr>
+<th colspan="2">Parameters <span>(Ordered by name)</span></th>
+</tr>
+</thead>
+<tbody>
+
+<tr class="mandatory">
+<td>
+<div class="param">group-id</div>
+<div class="paramUse">mandatory</div>
+</td>
+<td>
+<div>Specifies which work center group is to be removed.</div>
+<div class="exampleValues"><span>Example Value:</span> B</div>
+</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<!-- #apiDocRightColumn -->
+<div id="apiDocRightColumn">
+
+<div class="resourceInformation">
+
+<div class="resourceInformationTitle">Resource Information</div>
+
+<table>
+<tbody>
+<tr>
+<td>Requires Authentication?</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Response Formats</td>
+<td>json</td>
+</tr>
+<tr>
+<td>HTTP Methods</td>
+<td>
+<a href="<?php echo $this->url(array('controller' => 'api-documentation', 'action' => 'get-work-center-group'));?>">GET</a>
+<br/>
+<a href="<?php echo $this->url(array('controller' => 'api-documentation', 'action' => 'put-work-center-group'));?>">PUT</a>
+<br/>
+DELETE
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+
+
+<div class="clear"></div>
+

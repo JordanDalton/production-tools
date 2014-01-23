@@ -1,0 +1,24 @@
+
+<form action="<?php echo $this->escape($this->form->getAction());?>"
+enctype="<?php echo $this->form->getEnctype();?>"
+id="<?php echo $this->form->getAttrib('id');?>"
+method="<?php echo $this->form->getMethod();?>">
+<div class="formContainer">
+<div class="formHeader">
+<h1>Login</h1>
+<p class="instruction">-- Please use your windows workstation username &amp; password. -- </p>
+</div>
+<?php if (!empty($this->message)):?>
+<div class="formErrors">
+<?php echo $this->escape($this->message) ?>
+</div>
+<?php endif; ?>
+<div class="clearWrapper"><?php echo $this->form->username->renderViewHelper();?></div>
+<div class="clearWrapper"><?php echo $this->form->password->renderViewHelper();?></div>
+<div class="clearWrapper"><?php echo $this->form->userParams->renderViewHelper();?></div>
+<div style="float:right">
+<?php echo $this->form->loginButton->renderViewHelper();?>
+</div>
+<div class="clear"></div>
+</div>
+</form>

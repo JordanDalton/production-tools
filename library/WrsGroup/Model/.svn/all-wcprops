@@ -1,0 +1,131 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/WrsGroupPhpLibrary/!svn/ver/321/trunk/library/WrsGroup/Model
+END
+RecordSet.php
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/WrsGroupPhpLibrary/!svn/ver/235/trunk/library/WrsGroup/Model/RecordSet.php
+END
+Group.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/WrsGroupPhpLibrary/!svn/ver/171/trunk/library/WrsGroup/Model/Group.php
+END
+EmailAddress.php
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/WrsGroupPhpLibrary/!svn/ver/122/trunk/library/WrsGroup/Model/EmailAddress.php
+END
+Item.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/WrsGroupPhpLibrary/!svn/ver/285/trunk/library/WrsGroup/Model/Item.php
+END
+LetsGelUser.php
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/WrsGroupPhpLibrary/!svn/ver/306/trunk/library/WrsGroup/Model/LetsGelUser.php
+END
+UserInterface.php
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/WrsGroupPhpLibrary/!svn/ver/296/trunk/library/WrsGroup/Model/UserInterface.php
+END
+BomComponent.php
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/WrsGroupPhpLibrary/!svn/ver/270/trunk/library/WrsGroup/Model/BomComponent.php
+END
+WorkCenterGroup.php
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/WrsGroupPhpLibrary/!svn/ver/320/trunk/library/WrsGroup/Model/WorkCenterGroup.php
+END
+BomRoutingStepInterface.php
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/WrsGroupPhpLibrary/!svn/ver/270/trunk/library/WrsGroup/Model/BomRoutingStepInterface.php
+END
+UserAbstract.php
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/WrsGroupPhpLibrary/!svn/ver/296/trunk/library/WrsGroup/Model/UserAbstract.php
+END
+BomLevel.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/WrsGroupPhpLibrary/!svn/ver/264/trunk/library/WrsGroup/Model/BomLevel.php
+END
+BomParentInterface.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/WrsGroupPhpLibrary/!svn/ver/270/trunk/library/WrsGroup/Model/BomParentInterface.php
+END
+WrsUser.php
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/WrsGroupPhpLibrary/!svn/ver/318/trunk/library/WrsGroup/Model/WrsUser.php
+END
+Bom.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/WrsGroupPhpLibrary/!svn/ver/286/trunk/library/WrsGroup/Model/Bom.php
+END
+ItemInterface.php
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/WrsGroupPhpLibrary/!svn/ver/273/trunk/library/WrsGroup/Model/ItemInterface.php
+END
+BomRoutingStep.php
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/WrsGroupPhpLibrary/!svn/ver/270/trunk/library/WrsGroup/Model/BomRoutingStep.php
+END
+BomComponentInterface.php
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/WrsGroupPhpLibrary/!svn/ver/270/trunk/library/WrsGroup/Model/BomComponentInterface.php
+END
+ItemAbstract.php
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/WrsGroupPhpLibrary/!svn/ver/268/trunk/library/WrsGroup/Model/ItemAbstract.php
+END
+Mail.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/WrsGroupPhpLibrary/!svn/ver/227/trunk/library/WrsGroup/Model/Mail.php
+END
+WorkCenter.php
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/WrsGroupPhpLibrary/!svn/ver/321/trunk/library/WrsGroup/Model/WorkCenter.php
+END
+BomParent.php
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/WrsGroupPhpLibrary/!svn/ver/270/trunk/library/WrsGroup/Model/BomParent.php
+END

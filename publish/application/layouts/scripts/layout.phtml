@@ -1,0 +1,97 @@
+<?php
+$controllerName     = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+$actionName         = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+
+$homepageLink       = $this->url(array('controller' => 'index', 'action' => 'index'), null, true);
+
+$logoutLink         = $this->url(array('controller' => 'auth', 'action' => 'logout'), null, true);
+
+$loggedIn = (Zend_Auth::getInstance()->hasIdentity()) ? TRUE : FALSE;
+
+echo $this->doctype();
+?>
+
+<!--[if lt IE 7]><html class="no-js ie6 oldie" lang="en"><![endif]-->
+<!--[if IE 7]><html class="no-js ie7 oldie" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js ie8 oldie" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+
+<?php echo $this->headMeta() ?>
+
+
+<?php echo $this->headTitle() ?>
+
+
+<?php echo $this->headLink() ?>
+
+
+
+<?php echo $this->headStyle() ?>
+
+
+<?php echo $this->headScript() ?>
+
+</head>
+<body id="<?php echo $controllerName;?>" class="<?php echo $actionName;?>">
+
+<div class="wrapper">
+<!--#header-->
+<div id="header">
+
+<div class="internalWrapper">
+<h1><a href="<?php echo $homepageLink;?>">Production <span>Tools</span></a></h1>
+<?php if($loggedIn):?>
+<ul>
+<li><a href="<?php echo $logoutLink;?>">Logout</a></li>
+</ul>
+<?php endif;?>
+</div>
+
+</div>
+
+<?php if(!in_array($controllerName, array('auth'))):?>
+<!-- #navbar -->
+<div id="navbar">
+
+<div class="internalWrapper">
+<?php echo $this->navigation()->menu()->setMaxDepth(1);?>
+
+<div class="clear"></div>
+
+</div>
+
+</div>
+
+<?php endif;?>
+
+<div class="clear"></div>
+
+<!--#content-->
+<div id="content">
+
+<div class="internalWrapper">
+
+<div class="mainContent">
+<?php /* Navigation XML : application/configs/navigation.xml */ ?>
+<?php if(!in_array($controllerName, array('dashboard', 'auth'))):?>
+<div class="breadcrumbs">
+<?php echo $this->navigation()->breadcrumbs()->setLinkLast(false)->setMinDepth(0)->setRenderInvisible(true)->render();?>
+</div>
+<?php endif;?>
+<?php echo $this->layout()->content ?>
+</div>
+
+
+<div class="clear"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<?php echo $this->jQuery() ?>
+<?php echo $this->inlineScript() ?>
+</body>
+</html>

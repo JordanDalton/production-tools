@@ -1,0 +1,519 @@
+<?xml version="1.0"?>
+<!DOCTYPE project>
+<project name="ZF Project Deployment" default="usage" basedir="../"> <!-- one back since we're in build/ -->
+
+    <!-- Load in Ant-Contrib to give us access to some very useful tasks! -->
+    <!-- the .jar file is located in the tools directory -->
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+        <classpath>
+            <pathelement location="${basedir}/build/tools/ant-contrib-1.0b3.jar"/>
+        </classpath>
+    </taskdef>
+
+    <!-- load shell environment -->
+    <property environment="ENV" />
+
+    <!-- load property files -->
+    <property file="build/config/project.properties"/>
+    <property file="build/config/default.properties"/>
+
+    <!-- merge the pages properties -->
+    <var name="page-files" value="${file.pages}, ${file.pages.default.include}"/>
+    
+    <!-- Test for Ant Version Delete this task and all instances of overwrite='no' if you can't upgrade to 1.8.2-->
+    <fail message="All features of the build script require Ant version 1.8.2. Please upgrade to 1.8.2 or remove all instances of 'overwrite=no' (and this fail task) from the build script to continue">
+        <condition>
+            <not>
+                <contains string="${ant.version}" substring="1.8.2"/>
+            </not>
+        </condition>
+    </fail>
+
+    <target name="usage">
+        <echo>
+Usage: ant target-name
+
+Available targets:
+==================
+
+Development tools
+-----------------
+jslint - Uses Douglas Crockford JSLint to lint JavaScript files
+jshint - Uses the jshint fork of JSLint to lint JavaScript files
+csslint - Uses CSSLint to lint CSS files
+
+Deployment tools
+----------------
+deploy-main - Deploy files from a ZF project excluding library files
+deploy-zend - Deploy Zend Framework library files only
+deploy-other-libs - Deploy other PHP libraries in /library folder
+deploy-all - Combines all above deployment tasks
+
+Default deployment environment can be specified using env property
+in the project.properties file. To change the deployment environment
+from the command line, use:
+
+    ant target-name -Denv=staging
+
+(where "staging" is the desired environment)
+        </echo>
+    </target>
+
+    <target name="clean" description="Wipe the previous build">
+        <echo message="Cleaning up previous build directory..."/>
+        <delete dir="./${dir.intermediate}/"/>
+        <delete dir="./${dir.publish}/"/>
+    </target>
+
+    <!-- JSLint target, run separately -->
+    <target name="jslint">
+        <apply dir="${dir.source}/${dir.js}" executable="java" parallel="false" failonerror="true">
+            <fileset dir="./${dir.source}/">
+                <include name="**/${dir.js}/*.js"/>
+                <exclude name="**/*.min.js"/>
+                <exclude name="**/${dir.js.libs}/"/>
+                <exclude name="**/${dir.intermediate}/"/>
+                <exclude name="**/${dir.publish}/"/>
+            </fileset>
+            <arg value="-jar" />
+            <arg path="./${dir.build.tools}/${tool.rhino}" />
+            <arg path="./${dir.build.tools}/${tool.jslint}" />
+            <srcfile/>
+            <arg value="${tool.jslint.opts}" />
+        </apply>
+        <echo>JSLint Successful</echo>
+    </target>
+
+    <!-- JSHint target, run separately -->
+    <target name="jshint">
+        <apply dir="${dir.source}/${dir.js}" executable="java" parallel="false" failonerror="true">
+            <fileset dir="./${dir.source}/">
+                <include name="**/${dir.js}/*.js"/>
+                <exclude name="**/*.min.js"/>
+                <exclude name="**/${dir.js.libs}/"/>
+                <exclude name="**/${dir.intermediate}/"/>
+                <exclude name="**/${dir.publish}/"/>
+            </fileset>
+            <arg value="-jar" />
+            <arg path="./${dir.build.tools}/${tool.rhino}" />
+            <arg path="./${dir.build.tools}/${tool.jshint}" />
+            <srcfile/>
+            <arg value="${tool.jshint.opts}" />
+        </apply>
+        <echo>JSHint Successful</echo>
+    </target>
+    
+    <!-- CSSLint target, run separately -->
+    <target name="csslint">
+        <apply dir="${dir.source}/${dir.css}" executable="java" parallel="false" failonerror="true">
+            <fileset dir="./${dir.source}/">
+                <include name="**/${dir.css}/*.css"/>
+                <exclude name="**/*.min.css"/>
+                <exclude name="**/${dir.intermediate}/"/>
+                <exclude name="**/${dir.publish}/"/>
+            </fileset>
+            <arg value="-jar" />
+            <arg path="./${dir.build.tools}/${tool.rhino}" />
+            <arg path="./${dir.build.tools}/${tool.csslint}" />
+            <srcfile/>
+            <arg value="${tool.csslint.opts}" />
+        </apply>
+        <echo>CSSLint Successful</echo>
+    </target>
+
+    <target name="-mkdirs">
+        <if>
+            <or>
+                <equals arg1="${dir.publish}" arg2="."/>
+                <equals arg1="${dir.publish}" arg2=".."/>
+                <equals arg1="${dir.publish}" arg2="/"/>
+                <equals arg1="${dir.publish}" arg2="./"/>
+                <equals arg1="${dir.publish}" arg2="../"/>
+            </or>
+            <then>
+                <fail message="Your dir.publish folder is set to ${dir.publish} which could delete your entire site or worse. Change it in project.properties"/>
+            </then>
+            <else>
+                <echo message="Creating directory structure... ${dir.publish}"/>
+
+                <mkdir dir="${dir.intermediate}"/>
+                <copy todir="${dir.intermediate}" includeEmptyDirs="true">
+                    <fileset dir="${dir.source}/" excludes="${file.default.exclude}, ${file.exclude}">
+                        <type type="dir"/>
+                    </fileset>
+                </copy>
+                <mkdir dir="${dir.publish}"/>
+                <copy todir="${dir.publish}" includeEmptyDirs="true">
+                    <fileset dir="${dir.source}/" excludes="${file.default.exclude}, ${file.exclude}">
+                        <type type="dir"/>
+                    </fileset>
+                </copy>
+            </else>
+        </if>
+    </target>
+
+    <!-- HTML -->
+    <target name="-usemin">
+        <copy todir="${dir.intermediate}" overwrite="true">
+            <fileset dir="${dir.source}" includes="${page-files}"/>
+        </copy>
+
+        <!-- switch from a regular jquery to minified -->
+        <replaceregexp match="jquery-(\d|\d(\.\d)+)\.js" replace="jquery-\1.min.js" flags="g">
+            <fileset dir="./${dir.intermediate}" includes="${page-files}"/>
+        </replaceregexp>
+
+        <!-- switch any google CDN reference to minified -->
+        <replaceregexp match="(\d|\d(\.\d)+)\/jquery\.js" replace="\1/jquery.min.js" flags="g">
+            <fileset dir="./${dir.intermediate}" includes="${page-files}"/>
+        </replaceregexp>
+
+        <!-- Remove favicon.ico reference if it is pointing to the root -->
+        <replaceregexp match="&lt;link rel=[&quot;']shortcut icon[&quot;'] href=[&quot;']/favicon\.ico[&quot;']&gt;" replace="">
+            <fileset dir="${dir.intermediate}" includes="${page-files}"/>
+        </replaceregexp>
+    </target>
+
+    <target name="-js.minify" depends="-mkdirs" description="(PRIVATE) Minifies JS scripts">
+        <echo message="Minifying scripts"/>
+        <copy todir="${dir.intermediate}/">
+            <fileset dir="${dir.source}/" includes="${dir.js}/**/*.min.js"/>
+        </copy>
+        <apply executable="java" parallel="false">
+            <fileset dir="${dir.source}/${dir.js}/" excludes="${file.js.bypass}">
+                <include name="**/*.js"/>
+                <exclude name="**/*.min.js"/>
+            </fileset>
+            <arg line="-jar"/>
+            <arg path="./${dir.build.tools}/${tool.yuicompressor}"/>
+            <srcfile/>
+            <arg line="--line-break"/>
+            <arg line="4000"/>
+            <arg line="-o"/>
+            <mapper type="glob" from="*.js" to="${basedir}/${dir.intermediate}/${dir.js}/*.js"/>
+            <targetfile/>
+        </apply>
+        <!-- at this point all js files are minified with their original names -->
+    </target>
+
+    <target name="-js.checksum">
+        <checksum file="${file_to_checksum}" algorithm="sha" property="file.sha"/>
+        <dirname file="${file_to_checksum}" property="dir.js.current"/> 
+        <move file="${file_to_checksum}" tofile="${dir.js.current}/${file.sha}.js"/>
+        <!-- Replace references to old file with references to checksum -->
+        <basename property="js.dirname" file="${dir.js}"/>
+        <basename property="js.filename" file="${file_to_checksum}"/>
+        <!-- Known limitation: can't have same filename in two different directories -->
+        <replaceregexp match="${js.dirname}\/(([\w-_\.]*\/)*)${js.filename}" replace="${js.dirname}/\1${file.sha}.js" flags="gm">
+            <fileset dir="${dir.intermediate}" includes="${page-files}"/>
+        </replaceregexp>
+    </target>
+
+    <target name="-js.rename" description="Generates checksums based on contents of the JS files and renames those JS files with the checksums, so that the browser does not pull it from cache">
+        <foreach param="file_to_checksum" target="-js.checksum">
+            <path>
+                <fileset dir="${dir.intermediate}">
+                    <include name="${dir.js}/**/*.js"/>
+                    <exclude name="${dir.js.libs}/**/*.js"/>
+                    <exclude name="${dir.js.mylibs}/**/*.js"/>
+                </fileset>
+            </path>
+        </foreach>
+    </target>
+
+    <target name="-js.copy" depends="-mkdirs">
+        <copy todir="${dir.publish}/">
+          <fileset dir="${dir.intermediate}/">
+              <include name="${dir.js}/**/*.js"/>
+          </fileset>
+        </copy>
+        <copy todir="${dir.publish}/${dir.js}/">
+            <fileset dir="${dir.source}/${dir.js}/" includes="${file.js.bypass}"/>
+        </copy>
+    </target>
+
+    <target name="-css.compress" depends="-mkdirs" description="(PRIVATE) Compresses CSS files">
+        <echo message="Compressing CSS files"/>
+        <apply executable="java" parallel="false">
+            <fileset dir="${dir.source}/${dir.css}/" excludes="${file.css.bypass}">
+                <include name="**/*.css"/>
+            </fileset>
+            <arg line="-jar"/>
+            <arg path="${dir.build.tools}/${tool.yuicompressor}"/>
+            <srcfile/>
+            <arg line="-o"/>
+            <mapper type="glob" from="*.css" to="${basedir}/${dir.intermediate}/${dir.css}/*.css"/>
+            <targetfile/>
+        </apply>
+        <!-- at this point all css files are minified with their original names -->
+    </target>
+
+    <target name="-css.checksum" description="Generates checksums based on contents of CSS files and replaces references in HTML/PHP">
+        <checksum file="${file_to_checksum}" algorithm="sha" property="file.sha"/>
+        <dirname file="${file_to_checksum}" property="dir.css.current"/> 
+        <move file="${file_to_checksum}" tofile="${dir.css.current}/${file.sha}.css"/>
+        <!-- Replace references to old file with references to checksum -->
+        <basename property="css.dirname" file="${dir.css}"/>
+        <basename property="css.filename" file="${file_to_checksum}"/>
+        <!-- Known limitation: can't have same filename in two different directories -->
+        <replaceregexp match="${css.dirname}\/(([\w-_\.]*\/)*)${css.filename}" replace="${css.dirname}/\1${file.sha}.css" flags="gm">
+            <fileset dir="${dir.intermediate}" includes="${page-files}"/>
+        </replaceregexp>
+    </target>
+
+    <target name="-css.rename" description="Renames CSS files with SHA checksums so that browsers do not pull them from cache if changed">
+        <foreach param="file_to_checksum" target="-css.checksum">
+            <path>
+                <fileset dir="${dir.intermediate}">
+                    <include name="${dir.css}/**/*.css"/>
+                </fileset>
+            </path>
+        </foreach>
+    </target>
+
+    <target name="-css.copy" depends="-mkdirs">
+        <copy todir="${dir.publish}/">
+            <fileset dir="${dir.intermediate}/" includes="${dir.css}/**/*.css"/>
+        </copy>
+        <copy todir="${dir.publish}/${dir.css}/">
+            <fileset dir="${dir.source}/${dir.css}/" includes="${file.css.bypass}"/>
+        </copy>
+    </target>
+
+    <target name="-html.compress" depends="-usemin">
+        <echo message="Run htmlcompressor on the HTML"/>
+        <echo message=" - removing unnecessary whitespace"/>
+        <echo message=" - removing html comments"/>
+        <echo message=" - compressing inline style/script tag contents"/>
+        <apply executable="java" parallel="false" dest="./${dir.publish}/" >
+            <fileset dir="./${dir.intermediate}/" includes="${page-files}" excludes="**/*.php"/>
+            <arg value="-jar"/>
+            <arg path="./${dir.build.tools}/${tool.htmlcompressor}"/>
+            <arg line="--compress-js"/>
+            <arg line="--compress-css"/>
+            <arg line="--preserve-line-breaks"/>
+            <arg line="--preserve-php"/>
+            <arg line="--preserve-ssi"/>
+            <srcfile/>
+            <arg value="-o"/>
+            <mapper type="glob" from="*" to="../${dir.publish}/*"/>
+            <targetfile/>
+        </apply>
+    </target>
+
+<!-- IMAGES -->
+    <target name="-imagespng" depends="-mkdirs" description="(PRIVATE) Optimizes .png images using optipng">
+        <echo message="Optimizing images..."/>
+        <echo message="This part might take a while. But everything else is already done."/>
+        <echo message=" "/>
+
+
+        <echo message="First, we run optipng on the .png files..."/>
+
+        <!-- osfamily=unix is actually true on OS X as well -->
+        <!-- On *nix's and OS X, check for optipng and give a helpful message if it's not installed -->
+        <if>
+            <and>
+                <os family="unix" />
+                <available file="optipng" filepath="${ENV.PATH}" />
+            </and>
+            <then>
+                <!-- work around https://sourceforge.net/tracker/?func=detail&aid=2671422&group_id=151404&atid=780916 -->
+                <delete>
+                    <fileset dir="./${dir.publish}/${dir.images}/">
+                        <include name="**/*.png"/>
+                    </fileset>
+                </delete>
+                <apply executable="optipng" dest="./${dir.publish}/${dir.images}/" osfamily="unix">
+                    <fileset dir="./${dir.source}/${dir.images}/" includes="**/*.png"  excludes="${images.bypass}, ${images.default.bypass}"/>
+                    <arg value="-quiet"/>
+                    <arg value="-o7"/>
+                    <arg value="-out"/>
+                    <targetfile/>
+                    <srcfile/>
+                    <mapper type="identity"/>
+                </apply>
+            </then>
+            <elseif>
+                <os family="unix" />
+                <then>
+                    <echo message="*** optipng NOT INSTALLED. SKIPPING OPTIMIZATION OF PNGs." />
+                    <echo message="*** Install optipng to enable png optimization." />
+                    <echo message="*** For instructions see 'Dependencies' at: http://html5boilerplate.com/docs/#Build-script#dependencies" />
+                </then>
+            </elseif>
+        </if>
+
+        <!-- work around https://sourceforge.net/tracker/?func=detail&aid=2671422&group_id=151404&atid=780916 -->
+        <delete>
+            <fileset dir="./${dir.publish}/${dir.images}/">
+                <include name="**/*.png"/>
+            </fileset>
+        </delete>
+        <apply executable="${basedir}/${dir.build.tools}/optipng-0.6.4-exe/optipng.exe" dest="./${dir.publish}/${dir.images}/" osfamily="windows">
+            <fileset dir="./${dir.source}/${dir.images}/" includes="**/*.png"  excludes="${images.bypass}, ${images.default.bypass}"/>
+            <arg value="-quiet"/>
+            <arg value="-o7"/>
+            <arg value="-out"/>
+            <targetfile/>
+            <srcfile/>
+            <mapper type="identity"/>
+        </apply>
+    </target>
+
+
+    <target name="-imagesjpg" depends="-mkdirs" description="(PRIVATE) Optimizes .jpg images using jpegtan">
+        <echo message="Now, we clean up those jpgs..."/>
+
+        <if>
+            <equals arg1="${images.strip.metadata}" arg2="true"/>
+            <then>
+                <var name="strip-meta-tags" value="none"/>
+            </then>
+            <else>
+                <var name="strip-meta-tags" value="all"/>
+            </else>
+        </if>
+
+        <!-- On *nix's and OS X, check for jpegtran and give a helpful message if it's not installed -->
+        <if>
+            <and>
+                <os family="unix" />
+                <available file="jpegtran" filepath="${ENV.PATH}" />
+            </and>
+            <then>
+                <apply executable="jpegtran" dest="./${dir.publish}/${dir.images}" osfamily="unix">
+                    <fileset dir="${dir.source}/${dir.images}" includes="**/*.jpg" excludes="${images.bypass}, ${images.default.bypass}"/>
+                    <arg value="-copy"/>
+                    <arg value="${strip-meta-tags}"/>
+                    <arg value="-optimize"/>
+                    <arg value="-outfile"/>
+                    <targetfile/>
+                    <srcfile/>
+                    <mapper type="identity"/>
+                    <!-- you may want to flag optimized images. If so, do it here. Otherwise change this to type="identity" -->
+                    <!--<mapper type="glob" from="*.jpg" to="*.jpg"/>-->
+                </apply>
+            </then>
+            <elseif>
+                <os family="unix" />
+                <then>
+                    <echo message="*** jpegtran NOT INSTALLED. SKIPPING OPTIMIZATION OF JPEGs." />
+                    <echo message="*** Install jpegtran to enable jpeg optimization." />
+                    <echo message="*** For instructions see 'Dependencies' at: http://html5boilerplate.com/docs/#Build-script#dependencies" />
+                </then>
+            </elseif>
+        </if>
+
+        <apply executable="${basedir}/${dir.build.tools}/jpegtran.exe" dest="./${dir.publish}/${dir.images}" osfamily="windows">
+            <fileset dir="${dir.source}/${dir.images}" includes="**/*.jpg"  excludes="${images.bypass}, ${images.default.bypass}"/>
+            <arg value="-copy"/>
+            <arg value="${strip-meta-tags}"/>
+            <arg value="-optimize"/>
+            <arg value="-outfile"/>
+            <targetfile/>
+            <srcfile/>
+            <mapper type="identity"/>
+            <!-- you may want to flag optimized images. If so, do it here. Otherwise change this to type="identity" -->
+            <!--<mapper type="glob" from="*.jpg" to="*.jpg"/>-->
+        </apply>
+    </target>
+
+
+    <target name="-imgcopy" depends="-mkdirs">
+        <echo message="Copying over the unmodified images."/>
+
+        <copy todir="./${dir.publish}/${dir.images}">
+            <fileset dir="${dir.source}/${dir.images}"  includes="**/*.jpg, **/*.png"/>
+        </copy>
+    </target>
+    
+
+    <target name="-copy" depends="-mkdirs">
+    <!-- This is a private target -->
+
+        <echo message="Copying over new files..."/>
+
+        <copy todir="./${dir.publish}">
+            <fileset dir="${dir.source}/" excludes="${file.default.exclude}, ${file.exclude}, ${page-files}">
+                <!-- exclude files that are superseded by optimized versions with different names -->
+                <!-- this is not strictly necessary, but it avoids putting unreferenced files into your server -->
+                <exclude name="${dir.js}/**/*.js"/>
+                <exclude name="${dir.css}/**/*.css"/>
+            </fileset>
+            <fileset dir="${dir.intermediate}" includes="${page-files}"/>
+        </copy>
+
+        <echo message="A copy of all non-dev files are now in: ./${dir.publish}."/>
+    </target>
+
+    <!-- Builds all the files into publish directory, but doesn't deploy anything -->
+    <target name="build" 
+            depends="-usemin,
+                     -js.minify,
+                     -js.rename,
+                     -js.copy,
+                     -css.compress,
+                     -css.rename,
+                     -css.copy,
+                     -html.compress,
+                     -imagespng,
+                     -imagesjpg,
+                     -copy
+                     "/>
+    
+    <!-- Set destination based on environment -->
+    <if>
+        <equals arg1="env" arg2="staging"/>
+        <then>
+            <propertycopy name="destination" from="dir.staging"/>
+        </then>
+        <else>
+            <property name="destination" value="${dir.production}"/>
+        </else>
+    </if>
+
+    <target name="deploy-main" depends="build">
+        <echo message="Copying non-library files to destination environment."/>
+        <!-- Create logs directory -->
+        <mkdir dir="${destination}/data/logs"/>
+        <!-- Create temp directory -->
+        <mkdir dir="${destination}/temp"/>
+        <!-- Copy the files -->
+        <sync todir="${destination}" overwrite="true" includeEmptyDirs="true">
+            <fileset dir="./${dir.publish}"/>
+            <preserveintarget>
+                <include name="**/data/logs/**"/>
+                <include name="**/library/**"/>
+                <include name="**/temp/**"/>
+            </preserveintarget>
+        </sync>
+    </target>
+
+    <!-- Deploy PHP libraries other than Zend -->
+    <target name="deploy-other-libs">
+        <sync todir="${destination}/library" overwrite="true">
+            <fileset dir="${dir.source}/library">
+                <exclude name="**/Zend/**"/>
+                <exclude name="**/ZendX/**"/>
+            </fileset>
+            <preserveintarget>
+                <include name="**/Zend/**"/>
+                <include name="**/ZendX/**"/>
+            </preserveintarget>
+        </sync>
+    </target>
+
+    <target name="deploy-zend">
+        <sync todir="${destination}/library/Zend" overwrite="true">
+            <fileset dir="${dir.source}/library/Zend"/>
+        </sync>
+        <sync todir="${destination}/library/ZendX" overwrite="true">
+            <fileset dir="${dir.source}/library/ZendX"/>
+        </sync>
+    </target>
+    
+    <!-- Deploy all files -->
+    <target name="deploy-all" depends="deploy-main, deploy-other-libs, deploy-zend"/>
+
+</project>

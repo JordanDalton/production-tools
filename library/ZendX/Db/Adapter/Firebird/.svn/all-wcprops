@@ -1,0 +1,11 @@
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/framework/!svn/ver/24485/standard/tags/release-1.11.11/extras/library/ZendX/Db/Adapter/Firebird
+END
+Exception.php
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/framework/!svn/ver/24485/standard/tags/release-1.11.11/extras/library/ZendX/Db/Adapter/Firebird/Exception.php
+END

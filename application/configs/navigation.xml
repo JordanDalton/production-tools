@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configdata>
+    <nav>
+        <label>Dashboard</label>
+        <controller>dashboard</controller>
+        <action>index</action>
+    </nav>
+    <work-orders>
+        <label>Work Orders</label>
+        <controller>work-order</controller>
+        <action>index</action>
+        <pages>
+            <archives>
+                <label>Report Archives</label>
+                <controller>work-order</controller>
+                <action>archives</action>
+                <pages>
+                    <archives-view>
+                        <label>View</label>
+                        <controller>work-order</controller>
+                        <action>archived-record</action>
+                    </archives-view>
+                </pages>
+            </archives>
+			<save-failed>
+				<visible>0</visible>
+                <label>Failed to Save</label>
+                <controller>work-order</controller>
+                <action>save-failed</action>
+			</save-failed>
+			<save-successful>
+				<visible>0</visible>
+                <label>Successful Save</label>
+                <controller>work-order</controller>
+                <action>save-successful</action>
+			</save-successful>
+        </pages>
+    </work-orders>
+    <work-center-groups>
+        <label>Work Center Groups</label>
+        <controller>work-center-group</controller>
+        <action>index</action>
+    </work-center-groups>
+</configdata>

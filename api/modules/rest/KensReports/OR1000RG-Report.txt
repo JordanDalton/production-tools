@@ -1,0 +1,194 @@
+        *************** Beginning of data ****************************************************
+0001.00  /COPY QCPYSRC,H_SPEC_WRS                                                       050506
+0002.00  //         _____                                                               010621
+0003.00  //        |     |               wrs group, ltd                                 010621
+0004.00  //      ###########                                                            010621
+0005.00  //       ( 0   0 )                                                             010621
+0006.00  //oooo------(_)-----oooo-----------------------------------------------        010621
+0007.00  // looking out for murphy                                                      010621
+0008.00  //                                                                             000303
+0009.00  //  system name. . : application plus                                          050117
+0010.00  //  module/program : or1000rg                                                  010621
+0011.00  //  text . . . . . : list all open orders with hold until complete code        010621
+0012.00  //                                                                             000316
+0013.00  //                                                                             000303
+0014.00  //    ooooo        ooooo                                                       010621
+0015.00  //    (    )       (    )                                                      010621
+0016.00  //-----(   )-------(   )-----------------------------------------------        010621
+0017.00  //      (_)         (_)                                                        010621
+0018.00  //                                                                             000303
+0019.00  //                      modification log                                       000303
+0020.00  //---------------------------------------------------------------------        000303
+0021.00  //              date: 06/21/01                                                 010621
+0022.00  //         programer: ken hilton                                               000303
+0023.00  //       description: create program                                           000303
+0024.00  //                                                                             000303
+0025.00  //---------------------------------------------------------------------        000303
+0026.00  //                                                                             000303
+0027.00  //     indicator summary                                                       000303
+0028.00  //                                                                             000303
+0029.00  //       90 - general purpose                                                  000303
+0030.00  //       99 - general purpose/first cycle processing                           000303
+0031.00  //                                                                             000303
+0032.00  //                                                                             000303
+0033.00  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -             000303
+0034.00 Forhed     ip   e           k disk                                              010621
+0035.00 Fordet     if   e           k disk                                              010621
+0036.00 Fwohe3     if   e           k disk                                              010622
+0037.00 Fpode1     if   e           k disk                                              010720
+0038.00 Fitmst     if   e           k disk                                              070131
+0039.00 Fqsysprt   o    f  132        printer oflind(*inof)                             000316
+0040.00                                                                                 010621
+0041.00 D                sds                                                            000303
+0042.00 D sdspgm                        10                                              000000
+0043.00 D sdslib                 81     90                                              000303
+0044.00 D sdscc                 199    200  0                                           000303
+0045.00 D sdsjob                244    253                                              000303
+0046.00 D sdsuser                       10                                              050117
+0047.00 D sdsjob#                        6                                              050117
+0048.00 D sdsdate               276    281                                              050117
+0049.00 D sdstime                        6  0                                           050117
+0050.00                                                                                 010621
+0051.00 D  ordsrc         s              1a                                             010621
+0052.00 D  item#          s              8a                                             010621
+0053.00 D  dudate         s              6s 0                                           010622
+0054.00 D  ordtot         s              9s 2                                           010622
+0055.00 D  shptot         s              9s 2                                           010625
+0056.00 D  bkotot         s              9s 2                                           010625
+0057.00                                                                                 010621
+0058.00 D status1         c                   const('Pending')                          000303
+0059.00 D status2         c                   const('Approvd')                          000303
+0060.00 D status3         c                   const('Closed ')                          000303
+0061.00 D status4         c                   const('Partial')                          000303
+0062.00 D status5         c                   const('Open   ')                          000303
+0063.00 D status6         c                   const('Held-  ')                          000303
+0064.00                                                                                 010621
+0065.00  /free                                                                          050117
+0066.00   if *inof = *on;                                                               010621
+0067.00     *inof = *off;                                                               000316
+0068.00     except header;                                                              000000
+0069.00   endif;                                                                        000000
+0070.00                                                                                 010621
+0071.00  /end-free                                                                      100127
+0072.00 C     ohcsno        cabeq     1000          skip                                100127
+0073.00 C     ohcsno        cabeq     1002          skip                                100127
+0074.00 C     ohcsno        cabeq     1003          skip                                100127
+0075.00 C     ohcsno        cabeq     1005          skip                                100127
+0076.00 C     ohcsno        cabeq     1025          skip                                100127
+0077.00  /free                                                                          100127
+0078.00   ordsrc = ohorsc;                                                              010621
+0079.00   if ohcscd = 'H' and ohprac <> ' ' and ordsrc <> 'I' and ohortp = 'B'          000000
+0080.00     and ohorgn > 00;                                                            000000
+0081.00     *in01 = *off;                                                               010621
+0082.00     setll ( ohcono : ohorno : ohorgn ) ordet;                                   000000
+0083.00     reade ( ohcono : ohorno : ohorgn ) ordet;                                   000000
+0084.00     dou %eof(ordet);                                                            010621
+0085.00       if odlitp = 'I';                                                          050117
+0086.00         if *in01 = *off;                                                        010621
+0087.00           except ordhed;                                                        000000
+0088.00         endif;                                                                  000000
+0089.00         item# = oditno;                                                         010622
+0090.00         if odboqt <> 0;                                                         010622
+0091.00           *in02 = *on;                                                          010622
+0092.00           chain ( odcono : odwhid : oditno ) wohe3;                             000000
+0093.00           if %found(wohe3);                                                     010622
+0094.00             dudate = esdudt;                                                    010622
+0095.00           else;                                                                 000000
+0096.00             chain oditno pode1;                                                 000000
+0097.00             if %found(pode1);                                                   010720
+0098.00               dudate = pddudt;                                                  010720
+0099.00             else;                                                               000000
+0100.00               dudate = 0;                                                       010622
+0101.00             endif;                                                              000000
+0102.00           endif;                                                                000000
+0103.00         endif;                                                                  000000
+0104.00         ordtot += + (odlspr * odqtor);                                          070131
+0105.00         shptot += + (odlspr * odqtsh);                                          070131
+0106.00         bkotot += + (odlspr * odboqt);                                          070131
+0107.00         chain oditno itmst;                                                     070131
+0108.00         except orddet;                                                          000000
+0109.00         *in01 = *on;                                                            010622
+0110.00         *in02 = *off;                                                           010621
+0111.00       endif;                                                                    000000
+0112.00       if *inof = *on;                                                           010621
+0113.00         *inof = *off;                                                           010621
+0114.00         except header;                                                          000000
+0115.00       endif;                                                                    000000
+0116.00       reade ( ohcono : ohorno : ohorgn ) ordet;                                 000000
+0117.00     enddo;                                                                      000000
+0118.00     except totals;                                                              000000
+0119.00   endif;                                                                        000000
+0120.00                                                                                 100127
+0121.00  /end-free                                                                      100127
+0122.00 C     skip          tag                                                         100127
+0123.00  /free                                                                          100127
+0124.00   // sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr   *inzsr             050117
+0125.00   // begining of program routine                                                050117
+0126.00   // sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr                      050117
+0127.00   begsr *inzsr;                                                                 000000
+0128.00   except header;                                                                000000
+0129.00   endsr;                                                                        000000
+0130.00  /end-free                                                                      050117
+0131.00                                                                                 050117
+0132.00 Oqsysprt   e            header         1 02                                     010621
+0133.00 O                       sdspgm              10                                  000316
+0134.00 O                       sdsuser             30                                  050117
+0135.00 O                                           74 'WRS Group LTD'                  000316
+0136.00 O                                          124 'Page-'                          000316
+0137.00 O                       page          z    132                                  010621
+0138.00                                                                                 010621
+0139.00 O          e            header         2                                        000316
+0140.00 O                       *date         y     10                                  010621
+0141.00 O                                           77 'Hold Until Complete'            010621
+0142.00 O                                          124 'Time-'                          000316
+0143.00 O                       sdstime            132 '  :  :  '                       050117
+0144.00                                                                                 010621
+0145.00 O          e            header         1                                        000316
+0146.00 O                                           24 '- - - - - - - - - - - - '       000316
+0147.00 O                       *place              48                                  000316
+0148.00 O                       *place              72                                  000316
+0149.00 O                       *place              96                                  000316
+0150.00 O                       *place             120                                  000316
+0151.00 O                                          132 '- - - - - - '                   000316
+0152.00                                                                                 010621
+0153.00 O          e            header         1                                        000316
+0154.00 O                                            7 'Item #'                         000316
+0155.00 O                                           20 'Description'                    000316
+0156.00 O                                           85 'Back Order'                     010621
+0157.00 O                                          100 'Commited'                       090225
+0158.00 O                                          110 'Due Date'                       010622
+0159.00 O                                          120 'Ent Date'                       070131
+0160.00 O                                          124 'Cde'                            070131
+0161.00                                                                                 010621
+0162.00 O          e            header         2                                        000316
+0163.00 O                                           24 '- - - - - - - - - - - - '       000316
+0164.00 O                       *place              48                                  000316
+0165.00 O                       *place              72                                  000316
+0166.00 O                       *place              96                                  000316
+0167.00 O                       *place             120                                  000316
+0168.00 O                                          132 '- - - - - - '                   000316
+0169.00                                                                                 010621
+0170.00 O          e            ordhed      1  1                                        010621
+0171.00 O                       ohorno               5                                  010621
+0172.00 O                                            6 '/'                              010621
+0173.00 O                       ohorgn               8                                  010621
+0174.00 O                       ohcsnm              40                                  010621
+0175.00                                                                                 010621
+0176.00 O          e            orddet         1                                        010621
+0177.00 O                       item#                8                                  010621
+0178.00 O                       oditd1              40                                  010621
+0179.00 O                       oditd2              71                                  010621
+0180.00 O                       odboqt        1     85                                  010621
+0181.00 O                       odqtsh        1    100                                  010621
+0182.00 O                     02dudate        yb   110                                  010622
+0183.00 O                       ohetdt        y    120                                  070131
+0184.00 O                       immc01             124                                  070131
+0185.00                                                                                 010622
+0186.00 O          e            totals         1                                        010622
+0187.00 O                                           11 'Order total'                    010622
+0188.00 O                       ordtot        1b +   1                                  010622
+0189.00 O                                        +   2 'Ship total'                     010625
+0190.00 O                       shptot        1b +   1                                  010625
+0191.00 O                                        +   2 'Back Order total'               010625
+0192.00 O                       bkotot        1b +   1                                  010625
+        ****************** End of data *******************************************************

@@ -1,0 +1,49 @@
+<div class="breadcrumbs">
+<?php echo($this->navigation()->breadcrumbs()->setLinkLast(false)->setMinDepth(0)->render());?>
+</div>
+
+<div class="sectionHeader enlarge">
+<h1>Handling Results</h1>
+</div>
+
+<!-- #apiDocLeftColumn -->
+<div id="apiDocLeftColumn" style="width:100%">
+
+<div class="generalContent">
+<p class="updatedOn">Updated on <?php echo $this->fileUpdated;?></p>
+<p>Handling results from the REST Server is actually quite simple, since all responses are encoded using JSON (by default).</p>
+<h5>Resource URL</h5>
+<p><a href="<?php echo $this->url(array('controller' => 'api-documentation', 'action' => 'establishing-connection'));?>" target="_blank">http://api.productiontoolsv2/api-documentation/establishing-connection</a></p>
+</div>
+
+<table>
+<thead>
+<tr class="noHover">
+<th colspan="1">Results handling explained</th>
+</tr>
+</thead>
+<tbody>
+
+<tr class="noHover">
+<td>
+<p>Since the REST Server responses are encoded using JSON, we will need to decode them (converts it into a PHP variable). To do this, lets look at the code from the <a href="<?php echo $this->url(array('controller' => 'api-documentation', 'action' => 'establishing-connection'));?>">establishing connection</a> documentation that pertains to handling the responses:</p>
+<code>
+<p>// Retrieve the results</p>
+<p>$results = $restResult->getBody();</p>
+</code>
+<p>To decode the response, change it to the following:</p>
+<code>
+<p>// Retrieve the results</p>
+<p>$results = $results = Zend_Json::decode($restResult->getBody(), Zend_Json::TYPE_OBJECT);</p>
+</code>
+<p>From here, it is up to you how you go through the data.</p>
+</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+
+<div class="clear"></div>
+

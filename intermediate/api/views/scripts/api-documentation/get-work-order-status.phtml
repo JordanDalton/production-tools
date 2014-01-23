@@ -1,0 +1,90 @@
+<div class="breadcrumbs">
+    <?php echo($this->navigation()->breadcrumbs()->setLinkLast(false)->setMinDepth(0)->render());?>    
+</div>
+
+
+<!-- .sectionHeader-->
+<div class="sectionHeader enlarge">
+<h1>GET work-order-status/</h1>
+</div>
+<!-- /.sectionHeader-->
+
+<!-- #apiDocLeftColumn -->
+<div id="apiDocLeftColumn">
+    
+    <!-- .generalContent -->
+    <div class="generalContent">
+        <p class="updatedOn">Updated on <?php echo $this->fileUpdated;?></p>
+        <p>Returns list of work order status(es) from the AS/400.</p>
+        
+        <h5>Resource URL</h5>
+        <p>http://api.productiontoolsv2.com/rest/work-order-status</p>
+    </div>
+    <!-- /.generalContent -->
+    
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2">Parameters <span>(Ordered by name)</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- BREAK -->
+                <tr>
+                    <td>
+                        <div class="param">id</div>
+                        <div class="paramUse">optional</div>
+                        
+                        <div class="paramUse chainSupported">supports chained values</div>
+                    </td>
+                    <td>
+                        <div>Restricts results to a particular work order status id(s).</div>                        
+                        
+                        <div class="exampleValues"><span>Example Value:</span> 21</div>
+                        
+                        <div>When chaining, make sure to separate each field with a comma. To validate as a valid HTTP path there cannot be any whitespaces on either side of each comma. </div>
+                        <div class="exampleValues"><span>Chaining Example Value:</span> 21,32</div>
+                    </td>
+                </tr>
+                <!-- END BREAK --> 
+            </tbody>
+        </table>    
+</div>
+<!-- /#apiDocLeftColumn -->
+
+<!-- #apiDocRightColumn -->
+<div id="apiDocRightColumn">
+    
+    <!-- .resourceInformation -->
+    <div class="resourceInformation">
+        
+        <!-- .resourceInformationTitle -->
+        <div class="resourceInformationTitle">Resource Information</div>
+        <!-- /.resourceInformationTitle -->
+        
+        <table>
+            <tbody>
+                <tr>
+                    <td>Requires Authentication?</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>Response Formats</td>
+                    <td>json</td>
+                </tr>
+                <tr>
+                    <td>HTTP Methods</td>
+                    <td>GET</td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+    <!-- /.resourceInformation -->
+</div>
+<!-- /#apiDocRightColumn -->
+
+
+<!-- .clear -->
+<div class="clear"></div>
+<!-- /.clear -->

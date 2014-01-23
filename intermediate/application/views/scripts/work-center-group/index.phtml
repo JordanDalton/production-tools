@@ -1,0 +1,89 @@
+<!-- .sectionHeader -->
+<div class="sectionHeader">
+    <h1>Work Center Groups</h1>
+    <button class="newEntry">Create Work Center Group</button>
+    
+    <!-- .clear -->
+    <div class="clear"></div>
+    <!-- /.clear -->
+</div>
+<!-- /.sectionHeader -->
+
+
+<!--.tableContainer-->
+<div class="tableContainer">
+    
+    <table id="groupTable">
+        <thead>
+            <tr>
+                <th>Group</th>
+                <th>Work Centers</th>
+                <th>Description</th>
+                <th>Staffing</th>
+                <th>Labor Capacity (hrs)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    
+</div>
+<!--/.tableContainer-->
+
+<!-- .workCenterGroupTotals -->
+<div class="workCenterGroupTotals">
+    <div>Total Staffing: <span class="totalStaffing">0</span> workers</div>
+    <div>Total Labor Capacity: <span class="totalLaborCapacity">0</span> hours</div>
+</div>
+<!-- /.workCenterGroupTotals -->
+
+<!-- #overlay -->
+<div id="overlay">
+    <div id="img-load">
+      <div class="loadingImage">Loading...</div>
+    </div>
+</div>
+<!-- /#overlay -->
+
+
+<!-- #formDialog -->
+<div id="formDialog" title="Add work center group" isUpdate="0">
+
+    <ul class="errorMessages">
+        <li class="errors">Please fix the following errors:</li>
+    </ul>
+    
+<form enctype="<?php echo $this->form->getEnctype();?>" 
+      id="<?php echo $this->form->getAttrib('id');?>" 
+      method="<?php echo $this->form->getMethod();?>">
+    
+    <div>
+        <?php echo $this->form->groupID->renderLabel();?>
+        <?php echo $this->form->groupID->renderViewHelper();?>
+    </div>
+    <div>
+        <?php echo $this->form->description->renderLabel();?>
+        <?php echo $this->form->description->renderViewHelper();?>
+    </div>
+    <div>
+        <label>Work Centers</label>
+        <div class="inputSim">
+            
+            <input id="tags" size="50" />
+            
+            <ul id="autoCompleteResults">
+            </ul>
+        </div>
+    </div>
+    <div style="display:none">
+        <?php echo $this->form->workCenters->renderViewHelper();?>
+    </div>
+    <div>
+        <?php echo $this->form->staffing->renderLabel();?>
+        <?php echo $this->form->staffing->renderViewHelper();?>
+    </div>    
+</form>
+    
+</div>
+<!-- /#formDialog -->

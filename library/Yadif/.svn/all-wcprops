@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 27
+/svn/Yadif/!svn/ver/6/trunk
+END
+LICENSE.txt
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/Yadif/!svn/ver/4/trunk/LICENSE.txt
+END
+Exception.php
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/Yadif/!svn/ver/4/trunk/Exception.php
+END
+.gitignore
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/Yadif/!svn/ver/6/trunk/.gitignore
+END
+pearfarm.spec
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/Yadif/!svn/ver/6/trunk/pearfarm.spec
+END
+Container.php
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/Yadif/!svn/ver/6/trunk/Container.php
+END
+Module.php
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/Yadif/!svn/ver/4/trunk/Module.php
+END
+Builder.php
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/Yadif/!svn/ver/6/trunk/Builder.php
+END
+README.markdown
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/Yadif/!svn/ver/6/trunk/README.markdown
+END

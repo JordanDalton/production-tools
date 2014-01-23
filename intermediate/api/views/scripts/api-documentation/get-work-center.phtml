@@ -1,0 +1,70 @@
+<div class="breadcrumbs">
+    <?php echo($this->navigation()->breadcrumbs()->setLinkLast(false)->setMinDepth(0)->render());?>    
+</div>
+
+
+<!-- .sectionHeader-->
+<div class="sectionHeader enlarge">
+<h1>GET work-center/</h1>
+</div>
+<!-- /.sectionHeader-->
+
+<!-- #apiDocLeftColumn -->
+<div id="apiDocLeftColumn">
+    
+    <!-- .generalContent -->
+    <div class="generalContent">
+        <p class="updatedOn">Updated on <?php echo $this->fileUpdated;?></p>
+        <p>Returns list of all the work centers in the AS/400 WOWCM database table.</p>
+        
+        <h5>Resource URL</h5>
+        <p>http://api.productiontoolsv2.com/rest/work-center</p>
+    </div>
+    <!-- /.generalContent -->
+    
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2">No Parameters</th>
+                </tr>
+            </thead>
+        </table>    
+</div>
+<!-- /#apiDocLeftColumn -->
+
+<!-- #apiDocRightColumn -->
+<div id="apiDocRightColumn">
+    
+    <!-- .resourceInformation -->
+    <div class="resourceInformation">
+        
+        <!-- .resourceInformationTitle -->
+        <div class="resourceInformationTitle">Resource Information</div>
+        <!-- /.resourceInformationTitle -->
+        
+        <table>
+            <tbody>
+                <tr>
+                    <td>Requires Authentication?</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>Response Formats</td>
+                    <td>json</td>
+                </tr>
+                <tr>
+                    <td>HTTP Methods</td>
+                    <td>GET</td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+    <!-- /.resourceInformation -->
+</div>
+<!-- /#apiDocRightColumn -->
+
+
+<!-- .clear -->
+<div class="clear"></div>
+<!-- /.clear -->

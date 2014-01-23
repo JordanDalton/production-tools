@@ -1,0 +1,138 @@
+<div class="breadcrumbs">
+    <?php echo($this->navigation()->breadcrumbs()->setLinkLast(false)->setMinDepth(0)->render());?>    
+</div>
+
+
+<!-- .sectionHeader-->
+<div class="sectionHeader enlarge">
+<h1>GET work-center-group/</h1>
+</div>
+<!-- /.sectionHeader-->
+
+<!-- #apiDocLeftColumn -->
+<div id="apiDocLeftColumn">
+    
+    <!-- .generalContent -->
+    <div class="generalContent">
+        <p class="updatedOn">Updated on <?php echo $this->fileUpdated;?></p>
+        <p>Returns list of work center groups in the AS/400.</p>
+        
+        <h5>Resource URL</h5>
+        <p>http://api.productiontoolsv2.com/rest/work-center-group</p>
+    </div>
+    <!-- /.generalContent -->
+    
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2">Parameters <span>(Ordered by name)</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- BREAK -->
+                <tr>
+                    <td>
+                        <div class="param">group-id</div>
+                        <div class="paramUse">optional</div>
+                    </td>
+                    <td>
+                        <div>Restricts results to a particular group id.</div>                        
+                    </td>
+                </tr>
+                <!-- END BREAK -->          
+                <!-- BREAK -->
+                <tr>
+                    <td>
+                        <div class="param">order-by</div>
+                        <div class="paramUse">optional</div>
+                        
+                        <div class="paramUse chainSupported">supports chained values</div>
+                        <div class="paramUse bold">Sub-values are mandatory when using chained values.</div>
+                    </td>
+                    <td>
+                        <div>Orders the final results by specified field(s) and order types (ascending or descending). Each order-by field requires one sub-value which is separated by a colon (:).</div>
+                        <div class="exampleValues"><span>Example Value:</span> group<b style="color:blue">:</b>asc</div>
+                        <div>When chaining, make sure to separate each field with a comma. To validate as a valid HTTP path there cannot be any whitespaces on either side of each comma. </div>
+                        <div class="exampleValues"><span>Chaining Example Value:</span> group:asc,name:desc</div>
+                        
+                        <div>The following are the supported order-by fields:</div>
+                        <div>
+                            <ul>
+                                <li>group</li>
+                                <li>name</li>
+                                <li>staffing</li>
+                            </ul>
+                        </div>
+                        <div>The following are the supported sub-values:</div>
+                        <div>
+                            <ul>
+                                <li>asc (for ascending)</li>
+                                <li>desc (for descending)</li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <!-- END BREAK -->
+                <!-- BREAK -->
+                <tr>
+                    <td>
+                        <div class="param">work-center</div>
+                        <div class="paramUse">optional</div>
+                        
+                        <div class="paramUse chainSupported">supports chained values</div>
+                    </td>
+                    <td>
+                        <div>Restricts results to a particular work center(s).</div>
+                        <div class="exampleValues"><span>Example Value:</span> 43</div>
+                        <div>When chaining work centers, make sure to separate each order status with a comma. To validate as a valid HTTP path there cannot be any whitespaces on either side of each comma.</div>
+                        <div class="exampleValues"><span>Chaining Example Value:</span> ASBLY,43</div>
+                    </td>
+                </tr>
+                <!-- END BREAK -->
+            </tbody>
+        </table>    
+</div>
+<!-- /#apiDocLeftColumn -->
+
+<!-- #apiDocRightColumn -->
+<div id="apiDocRightColumn">
+    
+    <!-- .resourceInformation -->
+    <div class="resourceInformation">
+        
+        <!-- .resourceInformationTitle -->
+        <div class="resourceInformationTitle">Resource Information</div>
+        <!-- /.resourceInformationTitle -->
+        
+        <table>
+            <tbody>
+                <tr>
+                    <td>Requires Authentication?</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>Response Formats</td>
+                    <td>json</td>
+                </tr>
+                <tr>
+                    <td>HTTP Methods</td>
+                    <td>
+                        GET
+                        <br/>
+                        <a href="<?php echo $this->url(array('controller' => 'api-documentation', 'action' => 'put-work-center-group'));?>">PUT</a>
+                        <br/>
+                        <a href="<?php echo $this->url(array('controller' => 'api-documentation', 'action' => 'delete-work-center-group'));?>">DELETE</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+    <!-- /.resourceInformation -->
+</div>
+<!-- /#apiDocRightColumn -->
+
+
+<!-- .clear -->
+<div class="clear"></div>
+<!-- /.clear -->

@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/WrsGroupPhpLibrary/!svn/ver/215/trunk/tests/Model/DbTable/LgItems
+END
+FabricsTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/WrsGroupPhpLibrary/!svn/ver/189/trunk/tests/Model/DbTable/LgItems/FabricsTest.php
+END
+ForecastsTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/WrsGroupPhpLibrary/!svn/ver/140/trunk/tests/Model/DbTable/LgItems/ForecastsTest.php
+END
+ForecastsItemsTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/WrsGroupPhpLibrary/!svn/ver/181/trunk/tests/Model/DbTable/LgItems/ForecastsItemsTest.php
+END
+LgShipmentsItemsTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/WrsGroupPhpLibrary/!svn/ver/164/trunk/tests/Model/DbTable/LgItems/LgShipmentsItemsTest.php
+END
+UsersTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/WrsGroupPhpLibrary/!svn/ver/215/trunk/tests/Model/DbTable/LgItems/UsersTest.php
+END
+MatsTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/WrsGroupPhpLibrary/!svn/ver/208/trunk/tests/Model/DbTable/LgItems/MatsTest.php
+END
+FabricCutsTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/WrsGroupPhpLibrary/!svn/ver/140/trunk/tests/Model/DbTable/LgItems/FabricCutsTest.php
+END

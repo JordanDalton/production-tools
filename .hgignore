@@ -1,0 +1,12 @@
+glob:application/tags
+glob:data/logs/*.log
+glob:intermediate/*
+glob:library/tags
+glob:library/WrsGroup
+glob:library/Yadif
+glob:library/Zend
+glob:library/ZendX
+glob:publish/*
+glob:temp/*
+glob:tests/library/WrsGroup
+glob:tests/log/*

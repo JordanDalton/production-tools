@@ -1,0 +1,1 @@
+$(window).resize(function(){var e=$("#header");var b=parseInt(e.height());var c=parseInt($("#header").find("h1").css("marginTop"));var f=parseInt($("#header").find("h1").css("marginBottom"));var a=b+c+f;var d=$(window);var g=d.height();$("#content").css("min-height",g-a)});$(window).resize();

@@ -1,0 +1,174 @@
+/******************************************************************************* 
+ *  workCenterGroupIndexAction.css
+ *
+ *  @author Jordan Dalton <jordandalton@wrsgroup.com>
+ *  @created Feb 14, 2012, 3:07:36 PM
+ ******************************************************************************/
+
+#overlay { background:#eee }
+
+.sectionHeader button { 
+    box-shadow:2px 2px 2px rgba(0,0,0,.2);
+    font-size:12px;
+    margin-top:7px 
+}
+
+form { 
+    background:#eee;
+    padding:10px;
+}
+
+form div label { 
+    float:left;
+    margin:10px 0;
+    width:23%
+}
+
+form div label[for="tags"] { width:33% }
+
+form div textarea {
+    display:block;
+    width:74%;
+}
+
+
+form div input[type="text"] { 
+    display:inline-block;
+    width:74%;
+}
+
+form div input#tags { margin:0 5px;width:95% }
+
+form div input[type="text"]:focus {
+    background:#fff;
+    box-shadow:none;
+    color:#000;
+}
+
+form div { clear:both;margin-bottom:10px; }
+
+input#groupID   { width:20px;text-align:center }
+input#staffing  { width:50px;text-align:center }
+
+input#groupID[disabled="disabled"]{
+    border:none;
+    background:transparent;
+}
+
+
+/*******************************************************************************
+* jQuery UI Dialog
+*/
+#formDialog  { 
+    font-size:82.5%;
+    /*min-height:200px;*/
+    padding:0;
+}
+
+.ui-dialog { 
+    box-shadow:0 2.5px 5px rgba(0,0,0,.35);
+    padding:0;
+}
+
+.ui-dialog-titlebar{ display:none }
+.ui-dialog .ui-dialog-buttonpane { margin:0 0 0 }
+
+.ui-widget-overlay {
+    background:rgba(255,255,255,1);
+    box-shadow:inset 0 0 50px rgba(0,0,0,.75);
+}
+
+.ui-dialog-buttonset .ui-button {
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: -moz-linear-gradient(center top , #F9F9F9, #E3E3E3) repeat scroll 0 0 transparent;
+    background: -webkit-linear-gradient(top , #F9F9F9, #E3E3E3) repeat scroll 0 0 transparent;
+    border-color: #CCCCCC #BBBBBB #A0A0A0;
+    color: #000000;
+    font:bold 85% Arial;
+    text-shadow: 0 1px 1px #FFFFFF;
+}
+
+.ui-dialog-buttonset .ui-button:hover {
+    background: -moz-linear-gradient(center top , #E9E9E9, #D3D3D3) repeat scroll 0 0 transparent;
+    background: -webkit-linear-gradient(top , #E9E9E9, #D3D3D3) repeat scroll 0 0 transparent;
+}
+
+.ui-dialog-buttonset .ui-button[disabled="disabled"]:hover {
+    cursor: help;
+    background: -moz-linear-gradient(center top , #F9F9F9, #E3E3E3) repeat scroll 0 0 transparent;
+    background: -webkit-linear-gradient(top , #F9F9F9, #E3E3E3) repeat scroll 0 0 transparent;
+}
+
+.searchWorkCenters {
+    border-top:1px solid #c7c7c7;
+    margin-top:7px;
+    padding:7px 0;
+}
+
+.workCenterBreak {
+    border-top:1px solid #c7c7c7;
+    margin-top:7px;
+    padding-top:7px;
+}
+
+.searchWorkCenters label { width:33% }
+.searchWorkCenters input[type="text"] { width:46% }
+.searchWorkCenters button { margin-left:5px }
+
+#autoCompleteResults { 
+    list-style:none;
+    margin:5px 5px 0 5px; 
+}
+
+#autoCompleteResults li {
+    background:#e7e7e7;
+    border-radius:3px 3px 3px 3px;
+    padding:5px;
+    float:left;
+    margin:5px 5px 0 0;
+}
+
+div.inputSim {
+    background:#fff;
+    display:inline-block;
+    width:76%;
+    padding:5px 0;
+}
+
+#formDialog ul.errorMessages {
+    background:yellow;
+    display:none;
+    font-size:13px;
+    line-height:20px;
+    padding:5px;
+}
+
+#formDialog ul.errorMessages li {
+    margin:0 0 0 20px;
+}
+
+#formDialog ul.errorMessages li.errors {
+    font:bold 16px Arial;
+    margin:0;
+}
+
+#formDialog ul.errorMessages li span {
+    font-weight:bold;
+}
+
+.workCenterGroupTotals {
+    color:#777;
+    font-size:16px;
+    line-height:30px;
+    margin-top:20px;
+}
+
+.workCenterGroupTotals span { 
+    color:green;
+    font-weight:bold;
+    text-decoration:underline 
+}

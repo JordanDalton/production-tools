@@ -1,0 +1,107 @@
+/******************************************************************************* 
+ *  typography.css
+ *
+ *  @author Jordan Dalton <jordandalton@wrsgroup.com>
+ *  @created Jan 25, 2012, 1:36:43 PM
+ ******************************************************************************/
+
+html { 
+    color:#596877;
+    font:normal 100%/1 arial,helvetica,verdana 
+}
+
+.bold { font-weight: bold }
+.italic { font-style:italic }
+.underlined { text-decoration:underline }
+
+/**
+ * Headings
+ */
+h1,h2,h3,h4,h5,h6 { 
+    font-weight:normal 
+}
+
+/**
+ * Header
+ */
+#header h1 { 
+    font-size:190%;
+    letter-spacing:-1px;
+    word-spacing: -10px
+}
+
+#header h1 a { text-decoration:none }
+#header h1 a span { font-weight:bold; }
+
+#header ul li a { 
+    font-weight:bold;
+    text-decoration:none 
+}
+
+/**
+ * Content
+ */
+ #content .breadcrumbs { font-size:11px }
+ 
+ #content .sectionHeader h1 {
+     font:bold 160% arial;
+     letter-spacing:-1px;
+     /*text-transform: uppercase*/
+ }
+ 
+ #content .sectionHeader p {
+     font-size:90%;
+ }
+ 
+/*******************************************************************************
+ * Tables
+ */
+table { font-size:75% }
+table thead { font-weight:bold }
+ 
+/*******************************************************************************
+ * Forms
+ */
+form .formHeader h1 {
+    font:bold italic 160% arial;
+    letter-spacing:-1px;
+}
+
+form .formHeader p.instruction {
+    font-size:70%;
+}
+
+form p.specialNote { 
+    font-size:13px;
+    font-style:italic;
+    text-decoration:underline
+}
+
+form .formErrors {
+    font-size:80%;
+    font-weight: bold;
+}
+
+form input[type='text']:focus {
+    font-weight:bold;
+}
+
+/*******************************************************************************
+ * Boxes
+ */
+.boxContainer {
+	font-size:80%;
+}
+
+.boxTitle {
+	font-size:95%;
+	font-weight:bold;
+	text-transform:uppercase;
+}
+
+/*******************************************************************************
+* Overlay Loading Indicators
+*/
+#img-load { 
+  font-weight:bold;
+}

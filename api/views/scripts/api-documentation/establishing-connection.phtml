@@ -1,0 +1,155 @@
+<div class="breadcrumbs">
+    <?php echo($this->navigation()->breadcrumbs()->setLinkLast(false)->setMinDepth(0)->render());?>    
+</div>
+
+
+<!-- .sectionHeader-->
+<div class="sectionHeader enlarge">
+<h1>Establishing Connection</h1>
+</div>
+<!-- /.sectionHeader-->
+
+<!-- #apiDocLeftColumn -->
+<div id="apiDocLeftColumn" style="width:100%">
+    
+    <!-- .generalContent -->
+    <div class="generalContent">
+        <p class="updatedOn">Updated on <?php echo $this->fileUpdated;?></p>
+        <p>What makes the REST Server so unique is that virtually any service that sends/receives HTTP requests can connect to it. You're not bound to a particular programming language. In the future, WRS Group may elect to develop a stand-alone REST Server application for all company intranet applications to interface with.</p>
+        <p>The documentation below covers connecting to the REST Server using <a href="http://framework.zend.com/">Zend Frameworks'</a> Zend_Rest_Client  and Zend_Http_Client class libraries.</p>
+        
+        <h5>External Resource URLs</h5>
+        <p>Zend_Rest_Client : <a href="http://framework.zend.com/manual/en/zend.rest.client.html" target="_blank">http://framework.zend.com/manual/en/zend.rest.client.html</a> <span class="externalLink" title="Opens in new tab/window."></span></p>
+        <p>Zend_Http_Client : <a href="http://framework.zend.com/manual/en/zend.http.html" target="_blank">http://framework.zend.com/manual/en/zend.http.html</a> <span class="externalLink" title="Opens in new tab/window."></span></p>
+    </div>
+    <!-- /.generalContent -->
+    
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="1">First, lets explain how the REST Server authenticates each request.</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- BREAK -->
+                <tr class="noHover">
+                    <td>
+                        <div>
+                            <p style="margin-top:0">When the REST Server receives a HTTP request, it checks to see if a custom header called "API-AUTHORIZATION" exists.</p>
+                            <code><?php echo htmlspecialchars('header(\'API-AUTHORIZATION: [YOUR-API-AUTHORIZATION-STRING]\');');?></code>
+                            <p class="quickBreak">If you're asking yourself <span class="bold italic">"Where does the API-AUTHORIZATION value come from?"</span> please see step #4 of the <a href="<?php echo $this->url(array('controller' => 'api-documentation', 'action' => 'api-keys'));?>">API Keys</a> document.</p>
+                            <p>It is from here, that the script attempts to validate the API-AUTHORIZATION value against database records. If valid, the script will then allow the results to be visible. If invalid, a json encoded error response will be shown.</p>
+                            <p>Example error response:</p>
+                            <code><?php echo htmlspecialchars('{"status":"failed","response":{"message":"Invalid API Key"}}');?></code>
+                        </div>
+                    </td>
+                </tr>
+                <!-- END BREAK -->                
+            </tbody>
+        </table>    
+    
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="1">How to : Establish a connection <span>(from start to finish)</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- BREAK -->
+                <tr class="noHover">
+                    <td>
+                        <div>
+                            <p style="margin-top:0">To create the "API-AUTHORIZATION" header we will use the Zend_Http_Client class:</p>
+                            <code>
+                                <p>// Create new instance of Zend_Http_Client</p>
+                                <p>$http_client = new Zend_Http_Client('http://api.productiontoolsv2');</p>
+                                <p><br/>// Create the API-AUTHORIZATION header</p>
+                                <p>$http_client->setHeaders('API-AUTHORIZATION', '[YOUR-API-AUTHORIZATION-STRING]');</p>
+                            </code>
+                            <p>Now we will use Zend_Rest_Client to send our request.</p>
+                            <code>
+                                <p>// Create instance of Zend_Rest_Client</p>
+                                <p>$restClient = new Zend_Rest_Client('http://api.productiontoolsv2');</p>
+                                <p><br/>// Set the HTTP client using $http_adapter that we just created</p>
+                                <p>$restClient->setHttpClient($http_client);</p>
+                                <p><br/>// Execute GET request</p>
+                                <p>$restResult = $restClient->restGet('rest/report/run/WO1010RG/work-center/43');</p>
+                                <p><br/>// Retrieve the results</p>
+                                <p>$results = $restResult->getBody();</p>
+                            </code>
+                        </div>
+                    </td>
+                </tr>
+                <!-- END BREAK -->                
+            </tbody>
+        </table>    
+    
+    
+    
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="1">
+                        How to : Establish a connection using Application.ini and Objects.ini <span>(from start to finish)</span>
+                        <div><span class="quickBreak">This is the preferred way.</span></div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- BREAK -->
+                <tr class="noHover">
+                    <td>
+                        <div>
+                            <p style="margin-top:0">Add the following to the <span class="bold underlined">application.ini</span> file:</p>
+                            <code>
+                                <p>; REST API SERVER</p>
+                                <p>api.url = 'http://api.productiontoolsv2'</p>
+                                <p>api.header = 'API-AUTHORIZATION'</p>
+                                <p>api.value  = '[YOUR-API-AUTHORIZATION-STRING]'</p>
+                            </code>
+                            <p style="margin-top:0">Add the following to the <span class="bold underlined">objects.ini</span> file:</p>
+                            <code>
+                                <p>;HTTP Client that will be passed to the Zend_Rest_Client</p>
+                                <p>httpClient.class = Zend_Http_Client</p>
+                                <p>httpClient.arguments.arg1 = %api.url%</p>
+                                <p>httpClient.arguments.arg2 = :config</p>
+                                <p>httpClient.params.:config.timeout = 60</p>
+                                <p>httpClient.methods.method1.method = setHeaders</p>
+                                <p>httpClient.methods.method1.arguments.arg1 = %api.header%</p>
+                                <p>httpClient.methods.method1.arguments.arg2 = %api.value%</p>
+                            </code>
+                            <p>Putting it all together: (Assuming you've called the container and config in your constructor/init.)</p>
+                            <code>
+                                <p>// Create instance of Zend_Rest_Client while using api url from application.ini</p>
+                                <p>$restClient = new Zend_Rest_Client($this->_config->api->url);</p>
+                                <p><br/>// Set the Zend_Http_Client information using the HTTP client defined in objects.ini</p>
+                                <p>$restClient->setHttpClient($this->_http_client);</p>
+                                <p><br/>// Execute GET request</p>
+                                <p>$restResult = $restClient->restGet('rest/report/run/WO1010RG/work-center/43');</p>
+                                <p><br/>// Retrieve the results</p>
+                                <p>$results = $restResult->getBody();</p>
+                            </code>
+                        </div>
+                    </td>
+                </tr>
+                <!-- END BREAK -->                
+            </tbody>
+        </table>    
+</div>
+<!-- /#apiDocLeftColumn -->
+
+
+<!-- .clear -->
+<div class="clear"></div>
+<!-- /.clear -->
+
+
+<!-- .navigationPreview -->
+<div class="navigationPreview">
+Next Step : <a href="<?php echo $this->url(array('controller' => 'api-documentation', 'action' => 'handling-results'));?>">Handling Results</a> 	&rarr;
+</div>
+<!-- /.navigationPreview -->
+
+<!-- .clear -->
+<div class="clear"></div>
+<!-- /.clear -->

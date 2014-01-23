@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/WrsGroupPhpLibrary/!svn/ver/281/trunk/tests/View/Helper
+END
+ItemCleanTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/WrsGroupPhpLibrary/!svn/ver/263/trunk/tests/View/Helper/ItemCleanTest.php
+END
+AddToVarTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/WrsGroupPhpLibrary/!svn/ver/267/trunk/tests/View/Helper/AddToVarTest.php
+END
+DateFormatTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/WrsGroupPhpLibrary/!svn/ver/281/trunk/tests/View/Helper/DateFormatTest.php
+END
+MatSuffixTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/WrsGroupPhpLibrary/!svn/ver/279/trunk/tests/View/Helper/MatSuffixTest.php
+END

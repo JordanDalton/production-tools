@@ -1,0 +1,261 @@
+/******************************************************************************* 
+ *  layout.css
+ *
+ * NOTE: CSS overrides exist inside the layout.js file.
+ *
+ *  @author Jordan Dalton <jordandalton@wrsgroup.com>
+ *  @created Jan 25, 2012, 1:22:55 PM
+ ******************************************************************************/
+
+html { height:100% }
+
+body {
+    overflow: -moz-scrollbars-vertical;
+    overflow: scroll;
+    height:100%;
+}
+
+/**
+ * Body Wrapper
+ * --------------
+ */
+
+.wrapper {
+    margin:0 auto;
+    max-width: 100%;
+    min-width:970px;
+}
+
+.internalWrapper {
+    margin:0 auto;
+    max-width: 98%;
+    min-width:970px;
+    width:970px;
+}
+
+.clear { clear:both }
+
+
+/**
+ * ICONS
+ * --------------
+ */
+.externalLink {    
+    border:none;
+    display:inline-block;
+    height:14px;
+    width:21px;
+}
+
+p { margin:10px 0 }
+
+/**
+ * HEADER
+ * --------------
+ */
+ #header {
+     border-style:solid solid solid solid;
+     border-width:0 0 1px 0;
+     overflow:hidden;
+     /*margin-top:8px;*/
+     padding:10px 0 5px 0;
+ }
+ 
+ #header h1 { 
+     float:left;
+     margin:10px 0px 10px 0;
+     width:275px;
+ }
+ 
+ #header h1 span.api {
+     color:rgba(0,0,0,.6);
+     display:inline-block;
+     font-weight:normal;
+     font-size:80%;
+     left:5px;
+     top:-2.5px;
+     position:relative;
+ }
+ 
+ #header ul {
+     border-style:solid solid solid solid;
+     border-width:0 0 0 1px;
+     float:left;
+     list-style:none;
+     margin:20px 0 0 0;
+ }
+ 
+ #header ul li { 
+     min-width:75px;
+     text-align:center 
+ }
+
+/**
+* CONTENT
+* --------------
+*/
+#content { overflow: hidden }
+#content .sectionHeader { padding:10px 0 } 
+#content .mainContent {}
+
+body#api-documentation #content .mainContent { min-height:400px }
+
+#content #apiDocLeftColumn {
+    float:left;
+    width:65%;
+}
+
+#content #apiDocRightColumn {
+    float:right;
+    width:29.9%;
+}
+
+#content .breadcrumbs { 
+    border-color:#fff #fff #eee #fff;
+    border-style:solid solid solid solid;
+    border-width:0 0 1px 0;
+    padding:10px 0;
+}
+ 
+/*******************************************************************************
+* Forms
+*/
+form {}
+form .formContainer {
+    padding:10px;
+}
+form .formHeader h1 { padding:0 0 5px 5px; }
+form .formHeader p.instruction  { 
+    border-radius:3px 3px 3px 3px;
+    padding:6px 3px;
+    text-align:center
+}
+
+form .formErrors {
+    border-style: solid solid solid solid;
+    border-width: 1px 1px 1px 1px;
+    margin: 5px 0 0 0;
+    padding: 10px;
+}
+
+form .clearWrapper {
+    margin-top:3px;
+    padding:3px 0;
+}
+
+form input[type='text'],
+form input[type='password'] {
+    border-radius:3px 3px 3px 3px;
+    border-style:solid solid solid solid;
+    border-width:1px 1px 1px 1px;
+    padding:4px;
+    width:94%;
+}
+
+form input[type='submit']{
+    border-radius: 3px 3px 3px 3px;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    font: 100% arial,sans-serif;
+    outline: medium none;
+    padding: 3px 8px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+
+/*******************************************************************************
+* API Documentation Section
+*/
+
+/* LEFT COLUMN */
+#content #apiDocLeftColumn {}
+
+#content #apiDocLeftColumn .generalContent p { margin-top:10px }
+
+#content #apiDocLeftColumn .generalContent h5 { margin-top:15px }
+
+#content #apiDocLeftColumn table th,
+#content #apiDocLeftColumn table td { padding:10px 5px }
+
+#content #apiDocLeftColumn table thead tr { border-top: 0 }
+
+#content #apiDocLeftColumn table tbody tr td:nth-child(1) { width:30% }
+
+#content #apiDocLeftColumn table tbody tr ol {
+    margin-left:30px;
+}
+
+#content #apiDocLeftColumn table tr td:nth-child(2) .exampleValues span {
+    margin-right:5px
+}
+
+#content #apiDocLeftColumn table tr td:nth-child(2) ul {
+    margin-left:30px;
+}
+
+/*----------------------------------------------------------------------------*/
+
+/* RIGHT COLUMN */
+#content #apiDocRightColumn {}
+
+#content #apiDocRightColumn .resourceInformation {
+    border-radius:5px 5px 5px 5px;
+    padding:10px 15px;
+}
+
+#content #apiDocRightColumn .resourceInformation table td:nth-child(2){
+    text-align:right;
+}
+
+
+/*----------------------------------------------------------------------------*/
+
+/* Example Request */
+#content #exampleRequest { margin-top:20px }
+
+#content #exampleRequest .generalContent p { margin-top:10px }
+
+#content #exampleRequest .generalContent h5 { margin-top:15px }
+
+
+
+.quickBreak {
+    background:#fff6bf;
+    padding:5px
+}
+
+code {
+    background-color: #F9F9F9;
+    border: 1px solid #D0D0D0;
+    color: #002166;
+    display: block;
+    font-family: Monaco,Verdana,Sans-serif;
+    font-size: 12px;
+    margin: 14px 0;
+    padding: 12px 10px;
+}
+
+
+/*******************************************************************************
+* Overlay Loading Indicators
+*/
+#overlay { 
+  display:none; 
+  position:absolute; 
+}
+
+#img-load { 
+  position:absolute;
+  /*text-align:center;*/
+}
+
+#img-load .loadingImage {
+    line-height:90px;
+    height:90px;
+    width:64px;
+}
+
+#img-load p { text-indent:10px }

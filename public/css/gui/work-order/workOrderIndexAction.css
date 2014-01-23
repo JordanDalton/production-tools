@@ -1,0 +1,127 @@
+/******************************************************************************* 
+ *  workOrderV2IndexAction.css
+ *
+ *  ---------------------------------------------------------------------------
+ *  Description goes here..
+ *  ---------------------------------------------------------------------------
+ *
+ *  @author Jordan Dalton <jordandalton@wrsgroup.com>
+ *  @created Mar 2, 2012, 10:30:35 AM
+ ******************************************************************************/
+
+.results-count { 
+    border-color:transparent #ddd;
+    border-style:solid dashed;
+    border-width:0 1px;
+    /*display:none;*/
+    margin:0 2px;
+    padding:10px;
+}
+
+table { margin-top: 10px }
+
+table tr:nth-child(even){
+background:#F7FBFF;
+}
+
+.boxContainer.boxCol1 { width:100% }
+
+.boxContainer.boxCol2,
+.boxContainer.boxCol3 { display:none }
+
+#selectReportWorkCentersContainer,
+#selectReportOrderStatusesContainer,
+.reportFilters { margin-top:10px }
+
+p.specialNote span {
+    background:red;
+    color:#fff;
+    font-weight:bold;
+    padding:3px;
+}
+
+.saveWorkOrderTableReport {
+    margin-top:10px
+}
+
+.mainBoxContainer.tableResultsContainer {
+    /*display:none;*/
+}
+
+.mainBoxContainer.tableResultsContainer .boxContent {
+    border:1px solid #fff;
+    padding:0;
+}
+
+.mainBoxContainer.tableResultsContainer .boxContent table {
+    font-size:95%;
+    margin:0;
+}
+
+.totalBackOrderValue { font-weight:bold }
+
+.applyWorkCenterGroups {
+    background:yellow;
+    display:none;
+    margin:0 2px;
+    padding:5px;
+}
+
+.remainingProductionHoursMessage {
+    background:#cc0000;
+    border-radius:3px;
+    color:#fff;
+    display:none;
+    margin-top:6px;
+    padding:6px;
+}
+
+.remainingProductionHoursMessage .remainingProductionHours {
+    border-color:#fff transparent;
+    border-style:solid solid;
+    border-width:1px 0;
+    font-weight:bold;
+}
+
+.appliedWorkCenterGroupData ul:nth-child(1) { line-height:20px;margin:20px; }
+.appliedWorkCenterGroupData ul ul,
+.appliedWorkCenterGroupData ul ul ul { margin-left:10px }
+
+.appliedWorkCenterGroupData ul span.colorCode {
+    float:left;
+    height:15px;
+    width:20px;
+    margin:2.5px 5px 0 0;
+}
+
+/* OR1000RG TABLE */
+table#or1000rgTable {}
+
+table#or1000rgTable tbody tr td:nth-child(2){
+    text-align:left;
+}
+
+table#or1000rgTable tbody tr.workOrderRow {
+    background:#f7f7f7;
+    border-top:2px solid #aaa;
+    font:bold 16px Arial;
+}
+
+table#or1000rgTable tbody tr.workOrderItemRow {
+    background:#fff;
+}
+
+table#or1000rgTable tbody tr.orderTotals {
+    background:#fcfcfc;
+}
+
+table#or1000rgTable tbody tr.orderTotals td:nth-child(1) { 
+    font-size:13px;
+    text-align:left;
+    text-indent:10px;
+}
+
+.marginedVerticalBar { 
+    color:rgba(0,0,0,.25);
+    margin:0 5px 
+}

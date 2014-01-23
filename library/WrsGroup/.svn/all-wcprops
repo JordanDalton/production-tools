@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/WrsGroupPhpLibrary/!svn/ver/327/trunk/library/WrsGroup
+END
+RequestUtils.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/WrsGroupPhpLibrary/!svn/ver/122/trunk/library/WrsGroup/RequestUtils.php
+END
+PasswordGenerator.php
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/WrsGroupPhpLibrary/!svn/ver/225/trunk/library/WrsGroup/PasswordGenerator.php
+END
+Mailer.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/WrsGroupPhpLibrary/!svn/ver/227/trunk/library/WrsGroup/Mailer.php
+END
+Date.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/WrsGroupPhpLibrary/!svn/ver/122/trunk/library/WrsGroup/Date.php
+END
+Ldap.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/WrsGroupPhpLibrary/!svn/ver/228/trunk/library/WrsGroup/Ldap.php
+END
+Event.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/WrsGroupPhpLibrary/!svn/ver/122/trunk/library/WrsGroup/Event.php
+END
+HashInterface.php
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/WrsGroupPhpLibrary/!svn/ver/305/trunk/library/WrsGroup/HashInterface.php
+END
+SaltInterface.php
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/WrsGroupPhpLibrary/!svn/ver/304/trunk/library/WrsGroup/SaltInterface.php
+END
+README.txt
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/WrsGroupPhpLibrary/!svn/ver/327/trunk/library/WrsGroup/README.txt
+END
+Loader.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/WrsGroupPhpLibrary/!svn/ver/122/trunk/library/WrsGroup/Loader.php
+END

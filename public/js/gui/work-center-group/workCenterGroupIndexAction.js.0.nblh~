@@ -1,0 +1,334 @@
+$( "#dialog:ui-dialog" ).dialog( "destroy" );
+
+var getWindowHeight = $(window).height() * .75;
+var getWindowWidth  = $(window).width()  * .75;
+
+
+var workCenterList   = {};
+var availableWorkCenters = [];
+
+function workCenter(id, name, inUse){
+    
+    return {
+        work_center_id   : id,
+        work_center_name : name,
+        work_center_use  : inUse
+    }
+    
+}
+
+/******************************************************************************/
+
+// Retrieve all the work centers from the database.
+$.getJSON(siteURL + 'ajax/get-work-center', function(results){
+
+    // Results exits
+    if(results.data.length >= 1)
+    {
+        // Loop through the results.
+        $.each(results.data, function(key,value){
+            
+            workCenterList[value.work_center_id] = workCenter(
+                value.work_center_id, 
+                value.work_center_name,
+                false
+            );
+        });
+
+    }
+    
+    // No results
+    else {
+        
+    }
+    
+    // Update the table on page load.
+    $('#groupTable').updateTable();
+    
+});
+
+/******************************************************************************/
+
+function split( val ) {
+    return val.split( /,\s*/ );
+}
+
+function extractLast( term ) {
+    return split( term ).pop();
+}
+
+/******************************************************************************/
+
+$( "#formDialog" ).dialog({
+    autoOpen: false,
+    height  : 400, //getWindowHeight,
+    modal   : true,
+    open    : function(event,ui){
+        
+        availableWorkCenters = [];
+        
+        $.each(workCenterList, function(key,value)
+        {    
+            if(value.work_center_use == false)
+            {                
+                // Add to list of available work centers.
+                //availableWorkCenters.push(key);
+                
+                var setJoinedName = key + ' - ' + value.work_center_name;
+                
+                availableWorkCenters.push({id:key, label:setJoinedName});
+            }
+        });
+        
+		var availableTags = availableWorkCenters;
+        
+        /*
+        var availableTags = [
+          {id:'43',label:"43 - ActionScript"}
+        ]
+        */
+        
+		$( "#tags" )
+			// don't navigate away from the field on tab when selecting an item
+			.bind( "keydown", function( event ) {
+				if ( event.keyCode === $.ui.keyCode.TAB &&
+						$( this ).data( "autocomplete" ).menu.active ) {
+					event.preventDefault();
+				}
+			})
+			.autocomplete({
+				minLength: 0,
+				source: function( request, response ) {
+					// delegate back to autocomplete, but extract the last term
+					response( $.ui.autocomplete.filter(
+						availableTags, extractLast( request.term ) ) );
+				},
+				focus: function() {
+					// prevent value inserted on focus
+					return false;
+				},
+				select: function( event, ui ) {
+                    
+                    // Prepare the new list item
+                    var newEntry = $('<li>').attr({'wc_id' : ui.item.id})
+                                            .html(ui.item.value + '<a class="icon-close"></a>');
+                    
+                    var workCentersSelector     = '#workCenters';                    
+                    var chosenWorkCenters       = $(workCentersSelector).val();
+                    var chosenWorkCentersLength = chosenWorkCenters.length;
+                    var setWorkCenterValue      = (chosenWorkCentersLength == 0)
+                                                ? (chosenWorkCenters + ui.item.id)
+                                                : (chosenWorkCenters + ',' + ui.item.id);
+                    
+                    // Append to the unordered list.
+                    $('#autoCompleteResults').append(newEntry);
+
+                    // Update the chosen work center list/value
+                    $('#workCenters').val(setWorkCenterValue);
+                    
+                    // Clear out the form input.
+					this.value = '';
+                    
+                    /*
+					var terms = split( this.value );
+					// remove the current input
+					terms.pop();
+					// add the selected item
+					terms.push( ui.item.value );
+					// add placeholder to get the comma-and-space at the end
+					terms.push( "" );
+					this.value = terms.join( ", \n" );
+                    */
+					return false;
+				}
+			});
+        
+        
+        
+    },
+    width   : 500, //getWindowWidth,
+    buttons: {
+        "Add Work Center Group": function(event) {
+            
+            event.preventDefault();
+            
+            console.log($('#tags').val());
+            
+            //$( this ).dialog( "close" );
+        },
+        Cancel: function() {
+            $( this ).dialog( "close" );
+        }
+    }
+
+});
+
+/******************************************************************************/
+
+$("a.icon-close" ).live('click', function(event)
+{
+    //event.preventDefault();
+    
+    // Get the current value from the element.
+    var workCentersValue = $('input#workCenters').val();
+        
+    // Get the work center from the closest li.
+    var getWorkCenterID = $(this).closest('li').attr('wc_id');
+        
+    // Establish our regular expression
+    //var regularExpression = new RegExp('('+getWorkCenterID+'[^A-z0-9])', 'gm');     
+    var regularExpression = new RegExp('('+getWorkCenterID+'(?=,)(,))', 'gm');     
+    
+    /*
+    $('input#workCenters').attr({
+        value : function(_,value){     
+            
+            return value.toString().replace(regularExpression, '', 'gm').toString();
+        }
+    });
+    */
+    // Delete the li item from the list.
+    $(this).closest('li').remove();
+});
+
+/******************************************************************************/
+
+// Click event to make the dialog appear.
+$('.newEntry').live('click', function(){
+    
+    $('#formDialog').dialog('open');
+   
+    return false;
+});
+
+/******************************************************************************/
+// Update the work center group table with the latest data.
+$.fn.updateTable = function()
+{       
+    $t = $(this);
+    
+    // Show loading overlay
+    $t.overlay({'show' : true});
+    
+    // Delete any existing table rows.
+    $t.find('tbody').find('tr').remove();
+    
+    // Query for all the current work center groups
+    $.getJSON(siteURL + 'ajax/get-work-center-group', function(response)
+    {
+        // Capture if data exists.
+        var dataLength = response.data ? response.data.length : 0;
+
+        // Data Exists
+        if(dataLength >= 1)
+        {
+            // Create index array for work centers to be appended to.
+            var workCenters = []
+
+            // Begin sub-loop
+            $.each(response.data, function(key, value)
+            {
+                // Show this work center in use.
+                workCenterList[value.cwwcid].work_center_use = true;
+                
+                // If group is not in use, add it to the index.
+                if(parseInt(workCenters.indexOf(value.wcg_id)) < 0)
+                {                       
+                    // Add to the index of groups.
+                    workCenters.push(value.wcg_id);
+
+                    var editLink = '<a href="#" class="icon-edit"></a>' +
+                                   '<a href="#" class="icon-delete"></a>';
+
+                    // Create new row in the table.
+                    $t.find('tbody').append(
+                        '<tr>' +
+                            '<td>' + value.wcg_id          + '</td>' +
+                            '<td>' + value.cwwcid          + '</td>' +
+                            '<td>' + value.wcg_name        + '</td>' +
+                            '<td>' + value.wcg_staffing    + '</td>' +
+                            '<td>' + editLink + '</td>' +
+                        '</tr>'
+                    );
+
+                    // Give our latest row some attributes.
+                    $t.find('tbody').find('tr:last').attr({
+                        'group'         : value.wcg_id,
+                        'workCenters'   : value.cwwcid,
+                        'description'   : value.wcg_name,
+                        'staffing'      : value.wcg_staffing
+                    });
+                }
+
+                // Append to exsiting record.
+                else {
+
+                    // Get the row of the existing group
+                    var getRow = $t.find('tbody')
+                                   .find('tr[group="'+ value.wcg_id +'"]');
+
+                    // Get the work centers 
+                    var getWorkCenter = getRow.find('td:nth-child(2)').text();
+
+                    // Set the new work center(s)
+                    var newWorkCenter = getWorkCenter + ', ' + value.cwwcid;
+
+                    getRow.attr('workCenters', newWorkCenter)
+                          .find('td:nth-child(2)')
+                          .text(newWorkCenter);
+                }
+            });	
+            // End sub-loop
+
+
+        }
+
+        // No data returned.
+        else {
+
+            // Create new row in the table.
+            $t.find('tbody').append(
+                '<tr>' +
+                    '<td colspan="5">There are no work center groups in use.</td>' +
+                '</tr>'
+            );
+
+        }
+        
+        // Show loading overlay
+        $t.overlay({'show' : false});        
+    });
+}
+
+/******************************************************************************/
+
+//$.getJSON(siteURL + 'ajax/get-work-center', function(response){});
+
+/******************************************************************************/
+
+// Event when the delete icon is clicked.
+$('.icon-delete').live('click', function(event){
+    
+    // Prevent default click action
+    event.preventDefault();
+    
+    // Get the group id this link is referenced to.
+    var getGroup = $(this).closest('tr').attr('group');
+    
+    // Attempt to delete the work center group.
+    $.getJSON(siteURL + 'ajax/delete-work-center-group/group-id/' + getGroup, function(response)
+    {
+        // Check if delete failed.
+        if(response.status === 'failed')
+        {
+            // Alert the user of the error.
+            alert(response.message);
+        } 
+        
+        // Delete was successful
+        else {
+            // Update the table
+            $('#groupTable').updateTable();
+        }
+    });
+});

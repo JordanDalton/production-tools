@@ -1,0 +1,301 @@
+/******************************************************************************* 
+ *  colors.css
+ *
+ *  @author Jordan Dalton <jordandalton@wrsgroup.com>
+ *  @created Jan 25, 2012, 1:21:36 PM
+ ******************************************************************************/
+
+html { background: url(images/bg-header-green.png) repeat-x top left }
+
+
+
+/*******************************************************************************
+* General Icons
+* ---------------
+*/
+.icon-close {
+    background:transparent url('images/icon-close.png') no-repeat center center;
+}
+
+.icon-edit {
+    background:transparent url('images/icon-edit.png') no-repeat center center;
+}
+
+.icon-delete {
+    background:transparent url('images/icon-delete.png') no-repeat center center;
+}
+
+/**
+ * HEADER
+ */
+#header { 
+    border-color:#eaeaea #eaeaea #eaeaea #eaeaea; 
+    box-shadow:inset 0 -50px 0 rgba(0,0,0,.01), 0 0 3px rgba(0,0,0,.5);
+}
+#header h1 a { color:#777;}
+#header h1 a span { color:#41a776 }
+
+#header ul { border-color:#ccc }
+#header ul li a {color:#1473c5 }
+
+/**
+ * NAVBAR
+ * --------------
+ */
+#navbar {
+    background:#f7f7f7;
+}
+
+#navbar ul.navigation li.active { 
+    background:#fff;
+}
+
+#navbar ul.navigation a:hover { color: #3F382D }
+
+#navbar ul.navigation li:active {
+    /*background:#000;*/
+    color: #FFF;
+}
+
+#navbar ul.navigation li:active a {
+    /*background:#000;*/
+}
+
+#navbar ul.navigation li a {
+    border-color:transparent transparent transparent transparent;
+    color: #444;
+}
+
+#navbar ul.navigation li.active a {
+    border-color:#aaa #ccc transparent #ccc;
+}
+
+ /* Doesn't work in IE */
+#navbar ul.navigation li.hover, 
+#navbar ul.navigation li:hover {
+    background:#e0e0e0;
+    color:#fff;
+}
+
+#navbar ul.navigation li.hover a {
+    color: #666;
+}
+
+#navbar ul.navigation li.hover {
+    /*box-shadow:0 0 1px #000;*/
+}
+
+#navbar ul.navigation li.hover a {
+    border-color:#ccc #ccc transparent #ccc;
+}
+
+/* NAVBAR LEVEL TWO */
+#navbar ul.navigation ul {
+    border-color:#aaa #aaa #aaa #aaa;
+    box-shadow:0 10px 10px rgba(0,0,0,.25);
+}
+
+#navbar ul.navigation ul li {
+    background:#e0e0e0;
+    color: #3F382D;
+}
+
+/* IE 6 & 7 Needs Inline Block */
+#navbar ul.navigation ul li a {
+    color: #3F382D;
+}
+
+#navbar ul.navigation ul li a:hover {
+    background:rgba(0,0,0,.2);
+    color: #FFF;
+}
+
+#navbar ul.navigation ul li.hover, 
+#navbar ul.navigation ul li:hover {
+    /*background: #000;*/
+    color: #FFF8ED;
+}
+
+#navbar ul.navigation ul li.hover a {
+    color: #FFF8ED;
+}
+
+/* NAVBAR LEVEL THREE */
+#navbar ul.navigation ul ul {
+    border-color:#3F382D transparent transparent transparent;
+}
+
+#navbar ul.navigation li:hover > ul {
+    border-color:#aaa #aaa #aaa #aaa;
+}
+
+#navbar ul.navigation ul li.hover ul a {
+    color: #3F382D;
+}
+
+#navbar ul.navigation ul li.hover ul a:hover {
+    color: #FFF8ED;
+}
+
+/**
+ * Content
+ */
+ #content { border-color:#ccc transparent transparent transparent}
+ 
+ #content .breadcrumbs { background:#eee }
+ #content .breadcrumbs a:link    { color:#1473c5 }
+ #content .breadcrumbs a:visited { color:purple  }
+ 
+ #content .sectionHeader h1 { color:#9a9a9a }
+
+ 
+ /*******************************************************************************
+* Tables
+*/
+table thead { background:#eee }
+
+table thead th.header { 
+    background-image: url(images/sort-small.gif);
+    background-repeat: no-repeat; 
+    background-position: center left; 
+    cursor: pointer; 
+} 
+
+table thead th.header.headerSortUp,
+table thead th.headerSortUp { 
+    background-image: url(images/sort-asc.gif); 
+    background-color:#ddd;
+} 
+
+table thead th.header.headerSortDown,
+table thead th.headerSortDown { 
+    background-image: url(images/sort-desc.gif);
+    background-color:#ddd;
+} 
+
+
+table th,
+table td { border-color:#c7c7c7 #c7c7c7 #c7c7c7 #c7c7c7 }
+
+table tbody tr:hover { background:#fafafa }
+
+table tbody tr td { border-color:#e7e7e7 #e7e7e7 #e7e7e7 #e7e7e7 }
+
+
+/*******************************************************************************
+* Forms
+*/
+form .formHeader p.instruction {
+    background:rgba(0,0,0,.1);
+}
+
+form p.specialNote {
+    background:yellow;
+}
+
+form .formErrors {
+    background-color: #FFF6BF;
+    border-color:#999 #999 #999 #999;
+    border-color:rgba(0, 0, 0, .25) rgba(0, 0, 0, .5) rgba(0, 0, 0, .5) rgba(0, 0, 0, .25);
+    box-shadow:inset 0 0 5px rgba(0,0,0,.25);
+}
+
+textarea,
+form input[type='text'],
+form input[type='password'] {
+    background:#fcfcfc;
+    border-color:#ccc #ccc #ccc #ccc;
+    color:#888;
+}
+
+button,
+form input[type='submit']{
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: -moz-linear-gradient(center top , #F9F9F9, #E3E3E3) repeat scroll 0 0 transparent;
+    background: -webkit-linear-gradient(top , #F9F9F9, #E3E3E3) repeat scroll 0 0 transparent;
+    border-color: #CCCCCC #BBBBBB #A0A0A0;
+    color: #000000;
+    text-shadow: 0 1px 1px #FFFFFF;
+}
+
+textarea:focus {
+    border-color:#555 #aaa #aaa #555;
+    box-shadow:inset 2px 2px 1px rgba(0,0,0,.25);
+}
+
+form input[type='text']:focus,
+form input[type='password']:focus {
+    background:#415A4E;
+    border-color:#555 #aaa #aaa #555;
+    box-shadow:inset 0 0 15px rgba(0,0,0, .75), 2.5px 2.5px 10px rgba(0,0,0,.4);
+    color:#fff;
+}
+
+/*******************************************************************************
+* Boxes
+*/
+.mainBoxContainer { background:#f7f7f7 }
+
+.boxContainer {
+    background:#fff;
+	border-color:#ccc #bbb #bbb #ccc;
+	box-shadow:3px 3px 0 rgba(0,0,0,.1);
+	
+}
+
+.boxTitle {
+	background:#e7e7e7;
+	background: -moz-linear-gradient(center top , #F9F9F9, #E3E3E3) repeat scroll 0 0 transparent;
+    background: -webkit-linear-gradient(top , #F9F9F9, #E3E3E3) repeat scroll 0 0 transparent;
+	border-color:#c7c7c7 #c7c7c7 #c7c7c7 #c7c7c7;
+}
+
+
+.boxTitle a.collapse {
+    background:transparent url(images/expand_collapse.gif) no-repeat right center;
+}
+
+.boxTitle a.expand {
+    background:transparent url(images/expand_collapse.gif) no-repeat left center;
+}
+
+.boxButtons {
+    /*background:#C0D9D9;*/
+    background: -moz-linear-gradient(left , #fff, #E3E3E3) repeat scroll 0 0 transparent;
+    background: -webkit-linear-gradient(left , #fff, #E3E3E3) repeat scroll 0 0 transparent;
+}
+
+/*******************************************************************************
+* Overlay Loading Indicators
+*/
+#overlay { 
+  background:#fff; 
+  box-shadow:inset 0 0 100px #ccc;
+}
+
+#img-load { 
+  color:#000;
+}
+
+#img-load .loadingImage {
+    background:transparent url('images/loading-indicator.gif') no-repeat top center;
+}
+
+/*******************************************************************************
+* Table Overrides
+*/
+.blueBreak { border-color:blue blue blue blue }
+
+table tbody tr.blur {
+    background:rgba(0,0,0,.15);
+    color:#aaa;
+}
+
+table tbody tr.blur:hover {
+    background:rgba(0,0,0,.05);
+    color:#000;
+}

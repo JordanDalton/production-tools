@@ -1,0 +1,151 @@
+/******************************************************************************* 
+ *  colors.css
+ *
+ *  @author Jordan Dalton <jordandalton@wrsgroup.com>
+ *  @created Jan 25, 2012, 1:21:36 PM
+ ******************************************************************************/
+
+html { background: url(images/bg-header-green.png) repeat-x top left }
+
+
+.addApiRecord {    
+    background:transparent url(images/icon-add-record.gif) no-repeat center center;
+    border:none;
+    height:36px;
+    width:36px;
+}
+
+.externalLink {    
+    background:transparent url(images/external-link.gif) no-repeat center center;
+}
+
+
+/**
+ * HEADER
+ */
+#header { 
+    border-color:#eaeaea #eaeaea #eaeaea #eaeaea; 
+    box-shadow:inset 0 -50px 0 rgba(0,0,0,.01), 0 0 3px rgba(0,0,0,.5);
+}
+#header h1 a { color:#777;}
+#header h1 a span { color:#41a776 }
+
+#header ul { border-color:#ccc }
+#header ul li a {color:#1473c5 }
+
+/**
+ * Navbar
+ */
+#navbar {}
+
+/**
+ * Content
+ */
+#content {
+    box-shadow:inset 0 0 100px rgba(0,0,0,.1);
+}
+
+#content .sectionHeader h1 { color:#9a9a9a }
+ 
+/*******************************************************************************
+* Forms
+*/
+form .formHeader p.instruction {
+    background:rgba(0,0,0,.1);
+}
+
+form .formErrors {
+    background-color: #FFF6BF;
+    border-color:#999 #999 #999 #999;
+    border-color:rgba(0, 0, 0, .25) rgba(0, 0, 0, .5) rgba(0, 0, 0, .5) rgba(0, 0, 0, .25);
+    box-shadow:inset 0 0 5px rgba(0,0,0,.25);
+}
+
+form input[type='text'],
+form input[type='password'] {
+    background:#fcfcfc;
+    border-color:#ccc #ccc #ccc #ccc;
+    color:#888;
+}
+
+form input[type='submit']{
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: -moz-linear-gradient(center top , #F9F9F9, #E3E3E3) repeat scroll 0 0 transparent;
+    border-color: #CCCCCC #BBBBBB #A0A0A0;
+    color: #000000;
+    text-shadow: 0 1px 1px #FFFFFF;
+}
+
+form input[type='text']:focus,
+form input[type='password']:focus {
+    background:#415A4E;
+    border-color:#555 #aaa #aaa #555;
+    box-shadow:inset 0 0 15px rgba(0,0,0, .75), 2.5px 2.5px 10px rgba(0,0,0,.4);
+    color:#fff;
+}
+
+/*******************************************************************************
+* API Documentation Section
+*/
+
+/* LEFT COLUMN */
+#content #apiDocLeftColumn {}
+
+#content #apiDocLeftColumn .generalContent h5 { color:#000 }
+
+#content #apiDocLeftColumn .generalContent .updatedOn { color:#999 }
+
+#content #apiDocLeftColumn table .param { color:#000 }
+
+#content #apiDocLeftColumn table tr.mandatory {
+    background:#fff6bf
+}
+
+#content #apiDocLeftColumn table tr th span { 
+    color:#888;
+}
+
+#content #apiDocLeftColumn table tr td:nth-child(2) .exampleValues span { color:#555; }
+
+/*----------------------------------------------------------------------------*/
+
+/* RIGHT COLUMN */
+#content #apiDocRightColumn {}
+
+#content #apiDocRightColumn .resourceInformation {
+    background:#f8f8f8;    
+    box-shadow:inset 0 0 70px rgba(0,0,0,.1),
+                     0 0 2px rgba(0,0,0,.45),
+                     0 0 2px rgba(0,0,0,.2)
+}
+
+#content #apiDocRightColumn .resourceInformation .resourceInformationTitle {
+    color:#000;
+}
+
+
+/*----------------------------------------------------------------------------*/
+
+/* Example Request */
+#content #exampleRequest .generalContent h5 { color:#000 }
+
+
+/*******************************************************************************
+* Overlay Loading Indicators
+*/
+#overlay { 
+  background:#fff; 
+  box-shadow:inset 0 0 100px #ccc;
+}
+
+#img-load { 
+  color:#000;
+}
+
+#img-load .loadingImage {
+    background:transparent url('images/loading-indicator.gif') no-repeat top center;
+}

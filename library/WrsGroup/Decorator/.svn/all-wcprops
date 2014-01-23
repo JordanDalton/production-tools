@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/WrsGroupPhpLibrary/!svn/ver/277/trunk/library/WrsGroup/Decorator
+END
+ItemClean.php
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/WrsGroupPhpLibrary/!svn/ver/272/trunk/library/WrsGroup/Decorator/ItemClean.php
+END
+ItemAbstract.php
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/WrsGroupPhpLibrary/!svn/ver/273/trunk/library/WrsGroup/Decorator/ItemAbstract.php
+END
+MatSuffix.php
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/WrsGroupPhpLibrary/!svn/ver/277/trunk/library/WrsGroup/Decorator/MatSuffix.php
+END

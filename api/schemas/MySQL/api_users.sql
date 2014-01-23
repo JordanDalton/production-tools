@@ -1,0 +1,11 @@
+/*DDL Information*/
+-------------------
+
+CREATE TABLE `api_users` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `key` VARCHAR(255) DEFAULT NULL,
+  `token` VARCHAR(255) DEFAULT NULL,
+  `secret` VARCHAR(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8
+

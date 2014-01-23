@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/svn/Yadif/!svn/ver/6/trunk/tests
+END
+AllTests.php
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/Yadif/!svn/ver/6/trunk/tests/AllTests.php
+END
+InstantiateObjectGraphTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/Yadif/!svn/ver/6/trunk/tests/InstantiateObjectGraphTest.php
+END
+ZendApplicationComplianceTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/Yadif/!svn/ver/6/trunk/tests/ZendApplicationComplianceTest.php
+END
+BindParamsTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/Yadif/!svn/ver/6/trunk/tests/BindParamsTest.php
+END
+EnforceSingletonTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/Yadif/!svn/ver/6/trunk/tests/EnforceSingletonTest.php
+END
+ModuleTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/Yadif/!svn/ver/6/trunk/tests/ModuleTest.php
+END
+BuilderTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/Yadif/!svn/ver/6/trunk/tests/BuilderTest.php
+END
+Fixture.php
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/Yadif/!svn/ver/4/trunk/tests/Fixture.php
+END
+ConfigComponentTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/Yadif/!svn/ver/6/trunk/tests/ConfigComponentTest.php
+END

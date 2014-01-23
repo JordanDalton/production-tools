@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/WrsGroupPhpLibrary/!svn/ver/315/trunk/library/WrsGroup/Model/Repository
+END
+WrsUser.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/WrsGroupPhpLibrary/!svn/ver/226/trunk/library/WrsGroup/Model/Repository/WrsUser.php
+END
+LetsGelUser.php
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/WrsGroupPhpLibrary/!svn/ver/315/trunk/library/WrsGroup/Model/Repository/LetsGelUser.php
+END
+UserInterface.php
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/WrsGroupPhpLibrary/!svn/ver/223/trunk/library/WrsGroup/Model/Repository/UserInterface.php
+END
+Abstract.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/WrsGroupPhpLibrary/!svn/ver/122/trunk/library/WrsGroup/Model/Repository/Abstract.php
+END

@@ -1,0 +1,144 @@
+<div class="breadcrumbs">
+<?php echo($this->navigation()->breadcrumbs()->setLinkLast(false)->setMinDepth(0)->render());?>
+</div>
+
+<div class="sectionHeader">
+<h1>API Documentation</h1>
+</div>
+
+
+<div class="docSection gettingStarted">
+
+<div class="subTitle">Getting Started</div>
+
+
+<div class="introText">Getting started with the Production Tools REST API is easy. Consult the resource documentation below and you will be interacting with the REST Server within minutes. The REST Server supports GET, POST, PUT, and DELETE methods.</div>
+
+<table>
+<thead>
+<tr>
+<th>Resources</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="<?php echo $this->url(array('controller' => 'api-documentation', 'action' => 'api-keys'));?>">API Keys</a></td>
+<td>Control who has access to the API.</td>
+</tr>
+<tr>
+<td><a href="<?php echo $this->url(array('controller' => 'api-documentation', 'action' => 'establishing-connection'));?>">Establishing Connection</a></td>
+<td>Prepare to request/send data using Zend_Rest_Client.</td>
+</tr>
+<tr>
+<td><a href="<?php echo $this->url(array('controller' => 'api-documentation', 'action' => 'handling-results'));?>">Handling Results</a></td>
+<td>Applying the data to your application..</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+<div class="docSection">
+
+<div class="subTitle">Report</div>
+
+
+<div class="introText">A collection of AS/400 based reports that have been converted to PHP from RPG.</div>
+
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="<?php echo $this->url(array('controller' => 'api-documentation', 'action' => 'get-report'));?>">GET report</a></td>
+<td>Returns report based upon the name/number of that report provided by the requestor.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+<div class="docSection">
+
+<div class="subTitle">Work Center</div>
+
+
+<div class="introText">Work centers that are part of the warehouse production for HE/CG.</div>
+
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="<?php echo $this->url(array('controller' => 'api-documentation', 'action' => 'get-work-center'));?>">GET work-center</a></td>
+<td>Returns list of all the work centers in the AS/400 WOWCM database table.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+<div class="docSection">
+
+<div class="subTitle">Work Center Group</div>
+
+
+<div class="introText">Group of work centers assigned to a group.</div>
+
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="<?php echo $this->url(array('controller' => 'api-documentation', 'action' => 'get-work-center-group'));?>">GET work-center-group</a></td>
+<td>Returns list of work center groups in the AS/400.</td>
+</tr>
+<tr>
+<td><a href="<?php echo $this->url(array('controller' => 'api-documentation', 'action' => 'put-work-center-group'));?>">PUT work-center-group</a></td>
+<td>Submit new work center group to the database.</td>
+</tr>
+<tr>
+<td><a href="<?php echo $this->url(array('controller' => 'api-documentation', 'action' => 'delete-work-center-group'));?>">DELETE work-center-group</a></td>
+<td>Remove a work center group from the database.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+<div class="docSection">
+
+<div class="subTitle">Work Order Status</div>
+
+
+<div class="introText">Work order status list from AS/400.</div>
+
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="<?php echo $this->url(array('controller' => 'api-documentation', 'action' => 'get-work-order-status'));?>">GET work-order-status</a></td>
+<td>Returns list of work order status(es) from AS/400.</td>
+</tr>
+</tbody>
+</table>
+</div>
+

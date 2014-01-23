@@ -1,0 +1,32 @@
+<div class="breadcrumbs">
+    <?php echo($this->navigation()->breadcrumbs()->setLinkLast(false)->setMinDepth(0)->render());?>    
+</div>
+
+
+<div class="sectionHeader">
+<h1>API Key Holders</h1>
+<p>List of all keys granted access to the REST server.</p>
+</div>
+
+<button id="refreshApiKeyTable"></button>
+<button id="addApiRecord"></button>
+<table id="apiKeyTable">
+<thead>
+<tr>
+<td>Key</td>
+<td>Token</td>
+<td>Secret</td>
+<td>Remove</td>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+
+<!-- #overlay -->
+<div id="overlay">
+    <div id="img-load">
+      <div class="loadingImage">Loading...</div>
+    </div>
+</div>
+<!-- /#overlay -->

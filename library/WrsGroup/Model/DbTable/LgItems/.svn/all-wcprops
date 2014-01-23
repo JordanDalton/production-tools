@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/WrsGroupPhpLibrary/!svn/ver/303/trunk/library/WrsGroup/Model/DbTable/LgItems
+END
+Fabrics.php
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/WrsGroupPhpLibrary/!svn/ver/290/trunk/library/WrsGroup/Model/DbTable/LgItems/Fabrics.php
+END
+Forecasts.php
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/WrsGroupPhpLibrary/!svn/ver/138/trunk/library/WrsGroup/Model/DbTable/LgItems/Forecasts.php
+END
+ForecastsItems.php
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/WrsGroupPhpLibrary/!svn/ver/303/trunk/library/WrsGroup/Model/DbTable/LgItems/ForecastsItems.php
+END
+LgShipmentsItems.php
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/WrsGroupPhpLibrary/!svn/ver/163/trunk/library/WrsGroup/Model/DbTable/LgItems/LgShipmentsItems.php
+END
+Users.php
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/WrsGroupPhpLibrary/!svn/ver/213/trunk/library/WrsGroup/Model/DbTable/LgItems/Users.php
+END
+Mats.php
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/WrsGroupPhpLibrary/!svn/ver/292/trunk/library/WrsGroup/Model/DbTable/LgItems/Mats.php
+END
+FabricCuts.php
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/WrsGroupPhpLibrary/!svn/ver/145/trunk/library/WrsGroup/Model/DbTable/LgItems/FabricCuts.php
+END

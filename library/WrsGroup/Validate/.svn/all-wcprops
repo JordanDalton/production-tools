@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/WrsGroupPhpLibrary/!svn/ver/210/trunk/library/WrsGroup/Validate
+END
+Match.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/WrsGroupPhpLibrary/!svn/ver/210/trunk/library/WrsGroup/Validate/Match.php
+END
+ConditionalRequired.php
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/WrsGroupPhpLibrary/!svn/ver/122/trunk/library/WrsGroup/Validate/ConditionalRequired.php
+END
+Address.php
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/WrsGroupPhpLibrary/!svn/ver/122/trunk/library/WrsGroup/Validate/Address.php
+END

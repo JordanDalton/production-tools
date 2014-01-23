@@ -1,0 +1,609 @@
+ Columns . . . :    6  80                                      Browse                                              WRS_08/QRPGLESRC 
+ SEU==>                                                                                                                    WO1010RG 
+ FMT ** ... 1 ...+... 2 ...+... 3 ...+... 4 ...+... 5 ...+... 6 ...+... 7 ...+... 8                                                 
+        *************** Beginning of data ***************************************************************************************   
+0001.00  /COPY QCPYSRC,H_SPEC_wrs                                                       060918                                      
+0002.00  //         _____                                                               060918                                      
+0003.00  //        |     |               wrs group, ltd                                 060918                                      
+0004.00  //      ###########                                                            060918                                      
+0005.00  //       ( @   @ )                                                             060918                                      
+0006.00  //OOOo------(_)-----oOOO-----------------------------------------------        060918                                      
+0007.00  // looking out for murphy                                                      060918                                      
+0008.00  //                                                                             060918                                      
+0009.00  //  system name. . : Application Plus                                          060918                                      
+0010.00  //  module/program : WO1010RG                                                  060918                                      
+0011.00  //  text . . . . . : This program is a clone of INFOR program WO355            060918                                      
+0012.00  //                   Open Work Order time needed to complete work              060918                                      
+0013.00  //                   order                                                     060918                                      
+0014.00  //    ooooO        Ooooo                                                       060918                                      
+0015.00  //    (    )       (    )                                                      060918                                      
+0016.00  //-----(   )-------(   )-----------------------------------------------        060918                                      
+0017.00  //      (_)         (_)                                                        060918                                      
+0018.00  //                                                                             060918                                      
+0019.00  //                      modification log                                       060918                                      
+0020.00  //---------------------------------------------------------------------        060918
+0021.00  //              date: 11/09/04                                                 060918
+0022.00  //         programer: Ken Hilton                                               060918
+0023.00  //       description: create program                                           060918
+0024.00  //             program by:    daly.commerce                                    060918
+0025.00  //                                                                             060918
+0026.00  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -             060918
+0027.00  //                                                                             041109
+0028.00  //       indictor summary                                                      041109
+0029.00  //                                                                             041109
+0030.00  //     76 - item list                                                          041109
+0031.00  //     77 - print 2 line description                                           041109
+0032.00  //     78 - print item w/partial desc / item only                              041109
+0033.00  //     79 - print cmpqty to date / cmpqty at work center                       041109
+0034.00  //     80 - report heading company ranges                                      041109
+0035.00  //     81 - report heading w/o no. ranges                                      041109
+0036.00  //     82 - report heading comp wh ranges                                      041109
+0037.00  //     83 - report heading finish good ranges                                  041109
+0038.00  //     84 - report heading start date ranges                                   041109
+0039.00  //     85 - report heading due date ranges                                     041109
+0040.00  //     86 - report heading job number ranges                                   041109
+0041.00  //     87 - report heading item number ranges                                  041109
+0042.00  //     88 - report heading revision level                                      041109
+0043.00  //     89 - report heading effective date ranges                               041109
+0044.00  //     90 - general purpose                                                    041109
+0045.00  //                                                                             041109
+0046.00  //                                                                             041109
+0047.00  //***************************************************************              981009
+0048.00  // a+ open work order header and routing                                       051102
+0049.00 Fwofmt03   ip   e             disk                                              051102
+0050.00  // item list detail file                                pgm prefix: iz         041109
+0051.00 Fitldt     if   e           k disk                                              010216
+0052.00  // work order activity file                             pgm prefix: db         041109
+0053.00 Fwoact     if   e           k disk                                              010212
+0054.00  // reciept logical view                                 pgm prefix: rc         041109
+0055.00 Frcpt1     if   e           k disk    rename(rcptr:rcpt1r)                      010212
+0056.00  // item master file                                     pgm prefix: im         041109
+0057.00 Fitmst     if   e           k disk                                              010212
+0058.00  // item balance file                                    pgm prefix: ib         041109
+0059.00 Fitbal     if   e           k disk                                              010309
+0060.00  // purchase order detail                                pgm prefix: pd         041109
+0061.00 Fpodet     if   e           k disk                                              010212
+0062.00  // order header file                                    pgm prefix: oh         041109
+0063.00 Forhed     if   e           k disk                                              010212
+0064.00  // order control file                                                          030818
+0065.00 Fqsysprt   o    f  198        printer oflind(*inof)                             110426
+0066.00  // user default file                                    pgm prefix: uz         041109
+0067.00 Fusrfc     if   e           k disk                                              010212
+0068.00  // vendor item master                                   pgm prefix: vi         050412
+0069.00 Fvnitm     if   e           k disk                                              050412
+0070.00 Forctl     if   f  256    11aidisk    keyloc(1)                                 030818
+0071.00                                                                                 010212
+0072.00 D tabsta          s              2    dim(12) ctdata perrcd(1)                  010212
+0073.00 D tabsnm          s             12    dim(12) alt(tabsta)                       010212
+0074.00 D wrk@            s              1    dim(28)                                   010212
+0075.00                                                                                 010213
+0076.00 D                 ds                                                            010213
+0077.00 D x9ctky                        11                                              000000
+0078.00 D  x9comp                        2  0 overlay(x9ctky)                           000000
+0079.00 D  x9appl                        2    overlay(x9ctky:3)                         000000
+0080.00 D  x9ckey                        7    overlay(x9ctky:5)                         000000 
+0081.00                                                                                 030818 
+0082.00  //             n a m e d    c o n s t a n t s                                  030818 
+0083.00 D @@unms          s                   like(pdunms)                              010213 
+0084.00 D @@itd1          s                   like(imitd1)                              010213 
+0085.00 D @@stdt          s                   like(esstdt)                              010213 
+0086.00 D @@dudt          s                   like(esdudt)                              010213 
+0087.00 D @@efdt          s                   like(esefdt)                              010213 
+0088.00 D @@orno          s                   like(esorno)                              030818 
+0089.00 D count           s              1s 0                                           030818 
+0090.00 D count1          s              1s 0                                           030818 
+0091.00 D @@cono          s              2s 0                                           051102 
+0092.00 D @@orgn          s              2s 0                                           030818 
+0093.00 D @               s              3s 0                                           030818 
+0094.00 D @@lnsq          s              4s 0                                           030818 
+0095.00 D @@rtsq          s              4s 0                                           030818 
+0096.00 D hms             s              6s 0                                           030818 
+0097.00 D ud@te           s              6s 0                                           030818 
+0098.00 D timetobld       s              7s 2                                           031001 
+0099.00 D l1ttb           s              9s 2                                           051102 
+0100.00 D l2ttb           s              9s 2                                           051102
+0101.00 D @@rcqt          s             13s 3                                           030818
+0102.00 D @@qycm          s             13s 3                                           030818
+0103.00 D @@qtdf          s             13s 3                                           030818
+0104.00 D ##cono          s              2                                              051102
+0105.00 D ##apid          s              2                                              051102
+0106.00 D ##wrkc          s              2                                              051102
+0107.00 D ##ctlk          s              7                                              051102
+0108.00 D wrkckey         s             11                                              051102
+0109.00 D work3@          s              1a                                             010213
+0110.00 D xa305           s              1a                                             030818
+0111.00 D p1shtd          s              1a                                             030818
+0112.00 D p1mode          s              1a                                             030818
+0113.00 D @$orpr          s              1a                                             030818
+0114.00 D wrksta          s              1a                                             030818
+0115.00 D xfrst           s              1a                                             030818
+0116.00 D @@wrk1          s              1a                                             030818
+0117.00 D @zdfdt          s              1a                                             030818
+0118.00 D @@whid          s              2a                                             030818
+0119.00 D ##orgn          s              2a                                             030818
+0120.00 D @@orpr          s              3a                                             030818  
+0121.00 D skip            s              4a                                             030818  
+0122.00 D @@orid          s              6a                                             030818  
+0123.00 D @@wrkc          s              5a                                             030818  
+0124.00 D ##ttb           s              7a                                             030818  
+0125.00 D pgn@m           s              8a                                             030818  
+0126.00 D ##qatb          s              9a                                             030818  
+0127.00 D p1name          s             10a                                             030818  
+0128.00 D uz0key          s             10a                                             030818  
+0129.00 D statnm          s             12a                                             030818  
+0130.00 D @lstnm          s             22a                                             030818  
+0131.00 D wk27a@          s             27a                                             010213  
+0132.00 D @@itds          s             27a                                             030818  
+0133.00 D wk28a@          s             28a                                             030818  
+0134.00 D @idesc          s             31a                                             010213  
+0135.00 D itno            s             10a                                             051102  
+0136.00                                                                                 010213  
+0137.00  // date fields                                                                 030818  
+0138.00 D                 ds                                                            010213  
+0139.00 D d@t1                           6  0                                           000000  
+0140.00 D  m@n                           2    overlay(d@t1)                             000000
+0141.00 D  d@y                           2    overlay(d@t1:3)                           000000
+0142.00 D  y@r                           2    overlay(d@t1:5)                           000000
+0143.00                                                                                 010213
+0144.00 D                 ds                                                            010213
+0145.00 D d@t2                           6  0                                           000000
+0146.00 D  fl@1                          2    overlay(d@t2)                             000000
+0147.00 D  fl@2                          2    overlay(d@t2:3)                           000000
+0148.00 D  fl@3                          2    overlay(d@t2:5)                           000000
+0149.00                                                                                 010213
+0150.00 D                sds                                                            010213
+0151.00 D @spgm                         10                                              000000
+0152.00 D @suser                254    263                                              010212
+0153.00 D @sdate                276    281                                              010212
+0154.00 D @stime                         6  0                                           000000
+0155.00  // prototype for 'xa305'                                                       041109
+0156.00 D xa305_001       pr                  extpgm('XA305')                           041109
+0157.00 D p1shtd_                        1                                              041109
+0158.00 D p1name_                       10                                              041109
+0159.00 D p1mode_                        1                                              041109
+0160.00  // prototype for 'xa305'                                                       041109
+0161.00 D xa305_002       pr                  extpgm('XA305')                           041109
+0162.00 D p1shtd_                        1                                              041109
+0163.00 D p1name_                       10                                              041109
+0164.00 D p1mode_                        1                                              041109
+0165.00  // prototype for 'xausrdta'                                                    041109
+0166.00 D xausrdta        pr                  extpgm('XAUSRDTA')                        041109
+0167.00 D @suser_                       10                                              041109
+0168.00  // prototype for 'xausfx'                                                      041109
+0169.00 D xausfx          pr                  extpgm('XAUSFX')                          041109
+0170.00 D @suser_                       10                                              041109
+0171.00 D pgn@m_                         8                                              041109
+0172.00                                                                                 010212
+0173.00 Irhedrte                                                                        051102
+0174.00 I                                          czwrkc        l2                     051102
+0175.00 I                                          esorst        l1                     051102
+0176.00                                                                                 030818
+0177.00  // aplus system  options record                                                030818
+0178.00 Iorctl     ns       12 cS   13 cO                                               010213
+0179.00 I                                 97   97  prntd2                               010213
+0180.00                                                                                 010212
+0181.00 I          ns       12 cB   13 cY                                               051102
+0182.00 I                                 14   33  wrkcdesc                             051102
+0183.00                                                                                 051102
+0184.00  //    m a i n l i n e   c a l c u l a t i o n s                                030818
+0185.00                                                                                 030818
+0186.00  // first time subroutine                                                       041109
+0187.00  /free                                                                          041109
+0188.00   count = 1;                                                                    041109
+0189.00   select;                                                                       000000
+0190.00   when xfrst <> 'N';                                                            000000
+0191.00     exsr $first;                                                                000000
+0192.00   endsl;                                                                        000000
+0193.00   *in50 = *off;                                                                 010216
+0194.00                                                                                 010216
+0195.00   // edit the report to be printed                                              010216
+0196.00   exsr $edit;                                                                   000000
+0197.00                                                                                 010213
+0198.00   // go to the next record if record do not meet seletion criteria              000000
+0199.00  /end-free                                                                      041109
+0200.00 C***  skip          cabne     *blanks       nxtrec                              061114
+0201.00                                                                                 010212
+0202.00  // edit dates from (yymmdd) to (mmddyy)                                        030818
+0203.00 C     esrldt        mult      100.0001      @@stdt                              040505
+0204.00 C     esdudt        mult      100.0001      @@dudt                              010216
+0205.00 C     esefdt        mult      100.0001      @@efdt                              010216
+0206.00                                                                                 010212
+0207.00  /free                                                                          041109
+0208.00   // get unit of measure                                                        041109
+0209.00   @@cono = escono;                                                              010213
+0210.00   @@orid = 'W' + esorno;                                                        010212
+0211.00   chain ( @@cono : @@orid ) podetr;                                             000000
+0212.00   if %found(podet);                                                             010212
+0213.00     @@unms = pdunms;                                                            010212
+0214.00   endif;                                                                        000000
+0215.00                                                                                 010212
+0216.00   // get completed order quanity                                                000000
+0217.00   @@cono = escono;                                                              010213
+0218.00   @@orid = 'W' + esorno;                                                        010213
+0219.00   @@lnsq = 1;                                                                   010213
+0220.00   @@rcqt = 0;                                                                   010213
+0221.00   chain ( @@cono : @@orid : @@lnsq ) rcpt1r;                                    000000
+0222.00   dow not %eof(rcpt1);                                                          010213
+0223.00     @@rcqt = @@rcqt + rcrcqt;                                                   010213
+0224.00     reade ( @@cono : @@orid : @@lnsq ) rcpt1r;                                  000000
+0225.00   enddo;                                                                        000000
+0226.00                                                                                 010213
+0227.00   // cat item & desc                                                            000000
+0228.00   chain esprit itmstr;                                                          051102
+0229.00   if %found(itmst);                                                             010213
+0230.00     clear wk28a@;                                                               000000
+0231.00     wk28a@ = %trimr(esprit) + imitd1;                                           010213
+0232.00     clear wrk@;                                                                 000000
+0233.00  /end-free                                                                      041109
+0234.00 C                   movea     wk28a@        wrk@                                010213
+0235.00  /free                                                                          041109
+0236.00     @ = 28;                                                                     010213
+0237.00     clear work3@;                                                               000000
+0238.00  /end-free                                                                      041109
+0239.00 C                   movea     wrk@(@)       work3@                              010213
+0240.00                                                                                 010213
+0241.00  /free                                                                          041109
+0242.00     if work3@ <> ' ';                                                           000000
+0243.00       wk27a@ = wk28a@;                                                          000000
+0244.00       %subst(wk27a@:27:1) = '+';                                                000000
+0245.00       @idesc = wk27a@;                                                          010213
+0246.00     else;                                                                       000000
+0247.00       @idesc = wk28a@;                                                          010213
+0248.00     endif;                                                                      000000
+0249.00                                                                                 010213
+0250.00     @@itds = @idesc;                                                            010213
+0251.00                                                                                 010213
+0252.00   endif;                                                                        000000
+0253.00                                                                                 010309
+0254.00   // get backordered quantity from itbal                                        041109
+0255.00   chain ( esprit : @@whid ) itbalr;                                             051102
+0256.00   if not %found(itbal);                                                         010309
+0257.00     clear ibboq1;                                                               000000
+0258.00   endif;                                                                        000000
+0259.00                                                                                 010213
+0260.00   // convert mmddyy to user format before output                                000000
+0261.00   exsr $d@tbf;                                                                  000000
+0262.00                                                                                 010216
+0263.00   timetobld = (esqtor * czsrlh) / 60;                                           051103
+0264.00   l1ttb += timetobld;                                                           051102
+0265.00   l2ttb += timetobld;                                                           051102
+0266.00   chain esprit vnitm;                                                           050412
+0267.00   itno = esprit;                                                                051102
+0268.00   // get parent item description                                                051102
+0269.00     chain esprit itmstr;                                                        051102
+0270.00     if %found(itmst);                                                           051102
+0271.00       @@itd1 = imitd1;                                                          051102
+0272.00     endif;                                                                      051102
+0273.00                                                                                 051102
+0274.00   except detail;                                                                000000
+0275.00                                                                                 010213
+0276.00   // convert user format to mmddyy after output                                 000000
+0277.00   exsr $d@taf;                                                                  000000
+0278.00   count1 = 1;                                                                   981009
+0279.00                                                                                 981009                                                                               
+0280.00  /end-free                                                                      041109
+0281.00 C     nxtrec        tag                                                         981009
+0282.00                                                                                 010213
+0283.00  // Change in order status                                                      051102
+0284.00 Cl1                 except    lvl1                                              051102
+0285.00                                                                                 051102
+0286.00  // Change in division                                                          051102
+0287.00 Cl2                 eval      ##cono = '00'                                     051102
+0288.00 Cl2                 eval      ##apid = 'PO'                                     051102
+0289.00 Cl2                 eval      ##wrkc = czwrkc                                   051102
+0290.00 Cl2                 eval      ##ctlk = 'BUYRM' + ##wrkc                         051102
+0291.00 Cl2                 eval      wrkckey = ##cono + ##apid + ##ctlk                051102
+0292.00 Cl2   wrkckey       chain     orctl                                             051102
+0293.00 Cl2                 except    lvl2                                              051102
+0294.00 Cl2                 except    head1                                             051102
+0295.00                                                                                 051102
+0296.00  // no sorted record were found                                                 051102
+0297.00 Clr                 if        count = 0                                         051102
+0298.00 Clr                 exsr      $first                                            010213
+0299.00 Clr                 except    norec                                             010213
+0300.00 Clr                 endif                                                       010213 
+0301.00                                                                                 010213 
+0302.00  // no record meet selected criteria                                            041109 
+0303.00 Clr                 if        count <> 0 and count1 = 0                         010213 
+0304.00 Clr                 except    norec                                             010213 
+0305.00 Clr                 endif                                                       010213 
+0306.00  /free                                                                          041109 
+0307.00   // sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr      $edit           041109 
+0308.00   // $edit - this subroutine edits report to be printed                         041109 
+0309.00   // sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr                      041109 
+0310.00   begsr $edit;                                                                  000000 
+0311.00                                                                                 010213 
+0312.00   // check if work center is used                                               041109 
+0313.00   if czwrkc <> *blanks;                                                         051102 
+0314.00     @@cono = escono;                                                            010213 
+0315.00     @@orno = esorno;                                                            010213 
+0316.00     @@orgn = 0;                                                                 010213 
+0317.00     @@wrkc = czwrkc;                                                            051102 
+0318.00     @@qycm = 0;                                                                 010213 
+0319.00     @@cono = escono;                                                            051102 
+0320.00     @@orno = esorno;                                                            051102
+0321.00     @@orgn = 0;                                                                 051102
+0322.00     @@rtsq = czrtsq;                                                            051102
+0323.00     chain ( @@cono : @@orno : @@orgn : @@rtsq ) woactr;                         000000
+0324.00     dow not %eof(woact);                                                        010213
+0325.00       @@qycm = @@qycm + dbqycm;                                                 010213
+0326.00       reade ( @@cono : @@orno : @@orgn : @@rtsq ) woactr;                       000000
+0327.00     enddo;                                                                      000000
+0328.00                                                                                 010213
+0329.00     // prepare  work center status                                              000000
+0330.00     if @@qycm = *zeros;                                                         010213
+0331.00       wrksta = 'N';                                                             010213
+0332.00     endif;                                                                      000000
+0333.00                                                                                 010213
+0334.00     if @@qycm <> *zeros;                                                        010213
+0335.00       @@qtdf = esqtor - @@qycm;                                                 010213
+0336.00                                                                                 010213
+0337.00       if @@qtdf <> *zeros and @@qtdf < esqtor;                                  010213
+0338.00         wrksta = 'S';                                                           010213
+0339.00       endif;                                                                    000000
+0340.00                                                                                 010213
+0341.00       if @@qtdf <= *zeros;                                                      010213
+0342.00         wrksta = 'C';                                                           010213
+0343.00       endif;                                                                    000000
+0344.00                                                                                 010213
+0345.00     endif;                                                                      000000
+0346.00   endif;                                                                        000000
+0347.00                                                                                 010213
+0348.00   // completed activity                                                         000000
+0349.00   if wrksta = 'C';                                                              051102
+0350.00     skip = 'SKIP';                                                              000000
+0351.00     leavesr;                                                                    000000
+0352.00   endif;                                                                        000000
+0353.00                                                                                 030818
+0354.00  /end-free                                                                      041109
+0355.00 C     nxttag        tag                                                         010213
+0356.00                                                                                 030818
+0357.00                                                                                 010213
+0358.00  // retreive order status description                                           041109
+0359.00  /free                                                                          041109
+0360.00   *in90 = %tlookup(esorst:tabsta:tabsnm);                                       010213
+0361.00   if *in90 = *on;                                                               010213
+0362.00     statnm = tabsnm;                                                            010213
+0363.00   endif;                                                                        000000
+0364.00                                                                                 010213
+0365.00   endsr;                                                                        041109
+0366.00   // sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr     $first           041109
+0367.00   // begining of program routine                                                041109
+0368.00   // sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr                      041109
+0369.00   begsr $first;                                                                 000000
+0370.00   xfrst = 'N';                                                                  010219
+0371.00   *in50 = *on;                                                                  010213
+0372.00                                                                                 010213
+0373.00                                                                                 010219
+0374.00   // retrieve system time                                                       041109
+0375.00  /end-free                                                                      041109
+0376.00 C                   time                    hms                                 010219
+0377.00                                                                                 010213
+0378.00  // get system option for print second line item description                    030818
+0379.00  /free                                                                          041109
+0380.00   x9comp = 0;                                                                   010213
+0381.00   x9appl = 'XA';                                                                010213
+0382.00   x9ckey = 'OPTIONS';                                                           010213
+0383.00   chain x9ctky orctl;                                                           000000
+0384.00                                                                                 010213
+0385.00   // edit heading for report                                                    041109
+0386.00                                                                                 010213
+0387.00   // convert mmddyy to user format before output                                000000
+0388.00   exsr $d@tbf;                                                                  000000
+0389.00                                                                                 010219
+0390.00   except head1;                                                                 000000
+0391.00                                                                                 010219
+0392.00   // convert user format to mmddyy after output                                 000000
+0393.00   exsr $d@taf;                                                                  000000
+0394.00                                                                                 010219
+0395.00   endsr;                                                                        041109
+0396.00   //sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr      $d@tbf           041109
+0397.00   // convert mmddy to user format before print                                  041109
+0398.00   //sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr                       041109
+0399.00   begsr $d@tbf;                                                                 000000
+0400.00                                                                                 010212
+0401.00   d@t1 = @@dudt;                                                                981009
+0402.00   exsr $d@t1;                                                                   000000
+0403.00   @@dudt = d@t2;                                                                000000
+0404.00                                                                                 000000
+0405.00   d@t1 = @@efdt;                                                                981009
+0406.00   exsr $d@t1;                                                                   000000
+0407.00   @@efdt = d@t2;                                                                000000
+0408.00                                                                                 000000
+0409.00   d@t1 = @@stdt;                                                                981009
+0410.00   exsr $d@t1;                                                                   000000
+0411.00   @@stdt = d@t2;                                                                000000
+0412.00                                                                                 010212
+0413.00   endsr;                                                                        041109
+0414.00   // sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr        $d@taf           041109
+0415.00   // convert user format back to mmddyy after print                             041109
+0416.00   // sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr                         041109
+0417.00   begsr $d@taf;                                                                 000000
+0418.00                                                                                 010212
+0419.00   d@t2 = @@dudt;                                                                981009
+0420.00   exsr $d@t2;                                                                   000000
+0421.00   @@dudt = d@t1;                                                                000000
+0422.00                                                                                 000000
+0423.00   d@t2 = @@efdt;                                                                981009
+0424.00   exsr $d@t2;                                                                   000000
+0425.00   @@efdt = d@t1;                                                                000000
+0426.00                                                                                 000000
+0427.00   d@t2 = @@stdt;                                                                981009
+0428.00   exsr $d@t2;                                                                   000000
+0429.00                                                                                 010212
+0430.00   endsr;                                                                        041109
+0431.00   // sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr      $d@t1           041109
+0432.00   // convert mmddy to user format                                               041109
+0433.00   // sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr                      041109
+0434.00   begsr $d@t1;                                                                  000000
+0435.00                                                                                 010213
+0436.00   // flip mdy to ymd                                                            000000
+0437.00   if uzdfdt = '1';                                                              010219
+0438.00     fl@1 = y@r;                                                                 010219
+0439.00     fl@2 = m@n;                                                                 010219
+0440.00     fl@3 = d@y;                                                                 010219
+0441.00   else;                                                                         000000
+0442.00     // flip mdy to dmy                                                          000000
+0443.00     if uzdfdt = '3';                                                            010219
+0444.00       fl@1 = d@y;                                                               010219
+0445.00       fl@2 = m@n;                                                               010219
+0446.00       fl@3 = y@r;                                                               010219
+0447.00     else;                                                                       000000
+0448.00       // move mdy to mdy                                                        000000
+0449.00       d@t2 = d@t1;                                                              010219
+0450.00     endif;                                                                      000000
+0451.00   endif;                                                                        000000
+0452.00                                                                                 010219
+0453.00   endsr;                                                                        041109
+0454.00   // sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr      $d@t2           041109
+0455.00   // convert user format to mmddyy                                              041109
+0456.00   // sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr                      041109
+0457.00   begsr $d@t2;                                                                  000000
+0458.00                                                                                 010219
+0459.00   // flip ymd to mdy                                                            000000
+0460.00   if uzdfdt = '1';                                                              010219
+0461.00     y@r = fl@1;                                                                 010219
+0462.00     m@n = fl@2;                                                                 010219
+0463.00     d@y = fl@3;                                                                 010219
+0464.00   else;                                                                         000000
+0465.00     // flip dmy to mdy                                                          000000
+0466.00     if uzdfdt = '3';                                                            010219
+0467.00       d@y = fl@1;                                                               010219
+0468.00       m@n = fl@2;                                                               010219
+0469.00       y@r = fl@3;                                                               010219
+0470.00     else;                                                                       000000
+0471.00       // move mdy to mdy                                                        000000
+0472.00       d@t1 = d@t2;                                                              010219
+0473.00     endif;                                                                      000000
+0474.00   endif;                                                                        000000
+0475.00                                                                                 010219
+0476.00   endsr;                                                                        041109
+0477.00   // sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr        @inzsr           041109
+0478.00   // initial begining of program routine                                        041109
+0479.00   // sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr sr                         041109
+0480.00   begsr *inzsr;                                                                 000000
+0481.00                                                                                 010212
+0482.00   // system default data                                                        000000
+0483.00   uz0key = 'SYSDEFLT';                                                          000000
+0484.00   chain uz0key usrfcr;                                                          000000
+0485.00   *in90 = not %found;                                                           041109
+0486.00   if *in90 = *off;                                                              000000
+0487.00     @zdfdt = uzdfdt;                                                            041109
+0488.00   endif;                                                                        000000
+0489.00                                                                                 010219
+0490.00   // if tp job, get userid from qtemp data area                                 000000
+0491.00   if @suser = 'APLUSCTL';                                                       000000
+0492.00     xausrdta ( @suser );                                                        010219
+0493.00   endif;                                                                        000000
+0494.00   // user data                                                                  000000
+0495.00   chain @suser usrfcr;                                                          000000
+0496.00                                                                                 010219
+0497.00   // if no hit, write to audit file                                             000000
+0498.00   if not %found(usrfc);                                                         010219
+0499.00     pgn@m = 'WO0356RG';                                                         000000
+0500.00     xausfx ( @suser : pgn@m );                                                  010219
+0501.00   endif;                                                                        000000
+0502.00                                                                                 010219
+0503.00   // if blank, use system default                                               000000
+0504.00   if uzdfdt = ' ';                                                              010219
+0505.00     uzdfdt = @zdfdt;                                                            010219
+0506.00   endif;                                                                        000000
+0507.00                                                                                 010219
+0508.00   *in90= *off;                                                                  010219
+0509.00                                                                                 010219
+0510.00   // convert udate to user format ud@te                                         010219
+0511.00   d@t1 = udate;                                                                 010219
+0512.00   exsr $d@t1;                                                                   000000
+0513.00   ud@te = d@t2;                                                                 010309
+0514.00                                                                                 010309
+0515.00   @@whid = '02';                                                                010212
+0516.00   endsr;                                                                        041109
+0517.00  /end-free                                                                      041109
+0518.00                                                                                 010212
+0519.00 Oqsysprt   e            head1          1  2                                     050412
+0520.00 O         or    of                                                              010219
+0521.00 O                       @spgm               10                                  010219
+0522.00 O                       *date               24 '0   /  /  '                     010309
+0523.00 O                       hms                 40 '  :  :  '                       010219
+0524.00 O                                           74 'OPEN WORK ORDER SUMM'           981009
+0525.00 O                                           77 'ARY'                            981009
+0526.00 O                                           84 'REPORT'                         981009
+0527.00 O                       page          z    130                                  010219
+0528.00 O                                          125 'PAGE:'                          981009
+0529.00                                                                                 010212
+0530.00 O          e            head1       1  1                                        010219
+0531.00 O         or    of                                                              010219
+0532.00 O                                            9 'Co/WO No.'                      981009
+0533.00 O                                           17 'Order'                          981009
+0534.00 O                                           31 'Work'                           051102
+0535.00 O                                           50 'Parent Item No.'                000202
+0536.00 O                                           66 'and Description'                051102
+0537.00 O                                           89 'Order'                          051102
+0537.01 O                                          103 'B/O'                            110426
+0538.00 O                                          124 'Build Time'                     110426
+0539.00 O                                          128 'U/M'                            110426
+0540.00 O                                          136 'Release'                        110426
+0541.00 O                                          144 'Due'                            110426
+0542.00                                                                                 010212
+0543.00 O          e            head1          1                                        010219
+0544.00 O         or    of                                                              010219
+0545.00 O                                           17 'Status'                         981009
+0546.00 O                                           32 'Center'                         051102
+0547.00 O                                           91 'Quantity'                       051102
+0547.01 O                                          105 'Quantity'                       110426
+0548.00 O                                          124 'In Hours'                       110426
+0549.00 O                                          136 'Date'                           110426
+0550.00 O                                          145 'Date'                           110426
+0551.00                                                                                 010212
+0552.00 O          e            head1          1                                        010219
+0553.00 O         or    of                                                              010219
+0554.00 O                                           24 '------------------------'       010212
+0555.00 O                       *place              48                                  010212
+0556.00 O                       *place              72                                  010212
+0557.00 O                       *place              96                                  010212
+0558.00 O                       *place             120                                  010212
+0558.01 O                       *place             144                                  110426
+0559.00 O                                          146 '--'                             110426
+0560.00                                                                                 010212
+0561.00 O          e            detail      1                                           010213
+0562.00 O                       escono               2                                  010213
+0563.00 O                                            3 '/'                              981009
+0564.00 O                       esorno               8                                  010213
+0565.00 O                       statnm              22                                  010213
+0566.00 O                       czwrkc              32                                  051102
+0567.00 O                       itno                42                                  051102
+0568.00 O                       @@itd1              74                                  051102
+0569.00 O                       esqtor        m     90                                  051102
+0569.01 O                       ibboq1        m    104                                  110426
+0570.00 O                       timetobld     l    124                                  110426
+0571.00 O                       @@unms             128                                  110426
+0572.00 O                       @@stdt             137 '0  /  /  '                      110426
+0573.00 O                       @@dudt             146 '0  /  /  '                      110426
+0574.00                                                                                 051102
+0575.00 O          e            lvl1        2  2                                        051102
+0576.00 O                                           10 '** Total *'                     051102
+0577.00 O                       statnm              22                                  051102
+0578.00 O                       czwrkc              32                                  051102
+0579.00 O                       l1ttb         lb   124                                  110426
+0580.00                                                                                 051102
+0581.00 O          e            lvl2        1                                           051102
+0582.00 O                                           10 '** Total *'                     051102
+0583.00 O                       czwrkc              16                                  051102
+0584.00 O                       wrkcdesc            44                                  051102
+0585.00 O                       l2ttb         lb   124                                  110426
+0586.00                                                                                 010212
+0587.00 O          e            norec       3  1                                        010219
+0588.00 O                                           60 '***  NO RECORDS MEET'           981009
+0589.00 O                                           84 'SELECTION CRITERIA  ***'        981009
+0590.00                                                                                 981009
+0591.00 ease Rdy                                                                        981009
+0592.00 eased                                                                           981009
+0593.00 d-Mtl Sht                                                                       981009
+0594.00 d-Pck Rdy                                                                       981009
+0595.00 firmed                                                                          981009
+0595.00 firmed                                                                          981009
+0596.00 d-Mtl Sht                                                                       981009
+0597.00 d-Pck Rdy                                                                       981009
+0598.00 d-Rlsed                                                                         981009
+0599.00 l Short                                                                         981009
+        ****************** End of data *******************************************************

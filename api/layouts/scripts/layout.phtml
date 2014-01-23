@@ -1,0 +1,92 @@
+<?php
+$controllerName     = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+
+$actionName         = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+
+$homepageLink       = $this->url(array('controller' => 'index', 'action' => 'index'), null, true);
+
+$logoutLink         = $this->url(array('controller' => 'auth', 'action' => 'logout'), null, true);
+
+$loggedIn = (Zend_Auth::getInstance()->hasIdentity()) ? TRUE : FALSE;
+
+echo $this->doctype();
+?>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+    <head>
+        <!-- METAS -->
+        <?php echo $this->headMeta() ?>
+        
+        <!-- END METAS -->
+        <!-- PAGE TITLE -->
+        <?php echo $this->headTitle() ?>
+        
+        <!-- END PAGE TITLE -->
+        <!-- LINK (CSS, etc.) -->
+        <?php echo $this->headLink() ?>
+        
+        <!-- END LINK (CSS, etc.) -->
+        <!-- EMBEDDED STYLING -->
+        
+        <!-- EMBEDDED STYLING -->
+        <?php echo $this->headStyle() ?>
+        
+        <!-- END EMBEDDED STYLING -->
+        <!-- JAVASCRIPT FILES -->
+        <?php echo $this->headScript() ?>
+        
+        <!-- END JAVASCRIPT FILES -->
+        
+    </head>
+    <body id="<?php echo $controllerName;?>" class="<?php echo $actionName;?>">
+        <!--.wrapper-->
+        <div class="wrapper">
+        
+        <!--#header-->
+        <div id="header">
+            <!--.internalWrapper-->
+            <div class="internalWrapper">
+                <h1><a href="<?php echo $homepageLink;?>">Production<span>Tools</span> <span class="api">(API)</span></a></h1>
+                
+                <?php if($loggedIn):?>
+                <ul>
+                    <li><a href="<?php echo $logoutLink;?>">Logout</a></li>
+                </ul>
+                <?php endif;?>
+            </div>
+            <!--/.internalWrapper-->
+        </div>
+        <!--/#header-->
+                
+        <!--#content-->
+        <div id="content">
+            <!-- .internalWrapper -->
+            <div class="internalWrapper">
+                
+                <!-- .mainContent -->
+                <div class="mainContent">
+
+                    <?php echo $this->layout()->content ?>
+
+                </div>
+                <!-- ./mainContent -->
+
+                <!--.clear-->
+                <div class="clear"></div>
+                <!--/.clear-->
+            
+            </div>
+            <!--/.internalWrapper-->
+        </div>
+        <!--/#content-->
+            
+        </div>
+        <!--/.wrapper-->
+        
+        <?php echo $this->jQuery() ?>
+        <?php echo $this->inlineScript() ?>
+    </body>
+</html>

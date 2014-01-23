@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configdata>
+    <nav>
+        <label>Dashboard</label>
+        <controller>dashboard</controller>
+        <action>index</action>
+        <pages>
+            <manage-keys>
+                <label>Manage Keys</label>
+                <controller>manage-keys</controller>
+                <action>index</action>
+            </manage-keys>
+            <api-documentation>
+                <label>API Documentation</label>
+                <controller>api-documentation</controller>
+                <action>index</action>
+                <pages>
+                    <api-keys>
+                        <label>API Keys</label>
+                        <controller>api-documentation</controller>
+                        <action>api-keys</action>
+                    </api-keys>
+                    <establishing-connection>
+                        <label>Establishing Connection</label>
+                        <controller>api-documentation</controller>
+                        <action>establishing-connection</action>
+                    </establishing-connection>
+                    <handling-results>
+                        <label>Handling Results</label>
+                        <controller>api-documentation</controller>
+                        <action>handling-results</action>
+                    </handling-results>
+                    <get-report>
+                        <label>GET Report</label>
+                        <controller>api-documentation</controller>
+                        <action>get-report</action>
+                    </get-report>
+                    <get-work-center>
+                        <label>GET Work Center</label>
+                        <controller>api-documentation</controller>
+                        <action>get-work-center</action>
+                    </get-work-center>
+                    <get-work-center-group>
+                        <label>GET Work Center Group</label>
+                        <controller>api-documentation</controller>
+                        <action>get-work-center-group</action>
+                    </get-work-center-group>
+                    <put-work-center-group>
+                        <label>PUT Work Center Group</label>
+                        <controller>api-documentation</controller>
+                        <action>put-work-center-group</action>
+                    </put-work-center-group>
+                    <delete-work-center-group>
+                        <label>DELETE Work Center Group</label>
+                        <controller>api-documentation</controller>
+                        <action>delete-work-center-group</action>
+                    </delete-work-center-group>
+                    <get-work-order-status>
+                        <label>GET Work Order Status</label>
+                        <controller>api-documentation</controller>
+                        <action>get-work-order-status</action>
+                    </get-work-order-status>
+                </pages>
+            </api-documentation>    
+        </pages>
+    </nav>
+</configdata>
